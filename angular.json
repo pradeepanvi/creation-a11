@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "creation-a11"
+  "defaultProject": "creation-a11",
+  "cli": {
+    "analytics": "89500103-bee5-4045-8451-7d47b4f60906"
+  }
 }

@@ -1,0 +1,128 @@
+@mixin rotate($num) {
+  transform: rotate($num);
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  transition: 0.5s background;
+  background: transparent;
+  &.fixed {
+    background: $black-color;
+  }
+}
+
+.navbar {
+  padding: 0;
+  .navbar-brand {
+    padding: 15px;
+    background: $white-color;
+    transform: rotate(5deg);
+    border: 1px solid transparent;
+  }
+  .navbar-toggler {
+    color: $white-color;
+    border-color: transparent;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    overflow: hidden;
+    span {
+      width: 100%;
+      height: 2px;
+      display: block;
+      background: $white-color;
+      @include transition(0.3s all);
+      border-radius: 5px;
+      &:not(:last-child) {
+        margin-bottom: 6px;
+      }
+      &:nth-child(1) {
+        @include rotate(45deg);
+      }
+      &:nth-child(2) {
+        right: -100px;
+        position: relative;
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        @include rotate(-45deg);
+        margin-top: calc(-50% - 1px);
+      }
+    }
+    &.collapsed span {
+      @include rotate(0deg);
+      display: block;
+      margin-top: 0px;
+      right: 0;
+      opacity: 1;
+    }
+  }
+  .navbar-collapse {
+    .navbar-nav {
+      li {
+        a {
+          color: $cream-color;
+          &.active {
+            color: $white-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .navbar-collapse {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: table !important;
+    background: $orange-color;
+    top: 0;
+    right: 0;
+    @include transition(0.5s all);
+    transform: translate(100%, 0px);
+    z-index: -1;
+    &.show {
+      transform: translate(0, 0px);
+    }
+    .navbar-nav {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    li {
+      text-align: center;
+      a {
+        padding: 10px 15px !important;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 15px;
+          right: 15px;
+          bottom: 0;
+        }
+        &:hover {
+          &:before {
+            border-bottom-color: transparent !important;
+          }
+        }
+      }
+      &:not(:last-child) {
+        a {
+          &:before {
+          }
+        }
+      }
+      &.active {
+        a {
+          background: $red-color;
+          color: $white-color;
+          &:before {
+            border-bottom-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+}
