@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Homepage } from '../shared/home.interface';
 
@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   ourProduct: any;
   ourService: any;
   ourClient: any;
+  slideConfig = { "slidesToShow": 4, "slidesToScroll": 4 };
+  @Output() breakpoint: EventEmitter<{ event: any, slick: any, breakpoint: any }> = new EventEmitter();
   constructor(private http: HttpClient) {
 
   }
