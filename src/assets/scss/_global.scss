@@ -1,0 +1,14 @@
+.table_t {
+  display: table;
+  width: 100%;
+  .row_t {
+    display: table-row;
+  }
+  .cell_t {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+img {
+  max-width: 100%;
+}

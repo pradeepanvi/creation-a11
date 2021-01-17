@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (window.innerWidth < 992) {
-      this.toggleClick();
+      // this.toggleClick();
     }
     this.headerSticky();
   }

@@ -1,0 +1,73 @@
+<div id="home">
+    <div class="table_t">
+        <div class="cell_t">
+            <h1>{{welcome.title}}</h1>
+            <p [innerHtml]="welcome.des"></p>
+            <a class="btn  btn-success" routerLink="shop">{{welcome.btnTxt}}</a>
+        </div>
+    </div><a class="go_down" href="#samples"></a>
+</div>
+<div id="samples" class="d-flex align-items-center">
+    <div class="container-xxl">
+        <div class="slider">
+            <div class="owl-carousel owl-banner owl-theme">
+                <div class="item" *ngFor="let slide of slider">
+                    <div class="img_area"><img [src]="slide.url" [alt]="slide.name"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="our_product" class="d-flex align-items-center">
+    <div class="container-xxl">
+        <div class="head_area">
+            <h2>{{ourProduct.title}}</h2>
+            <p>{{ourProduct.des}}</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-3" *ngFor="let product of ourProduct.productItems">
+                <aside>
+                    <div class="img_area"><img [src]="product.url" [alt]="product.name"></div>
+                    <div class="txt_area">
+                        <p class="head">{{product.name}}</p>
+                        <p>{{product.des}}</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="services" class="d-flex align-items-center">
+    <div class="container-xxl">
+        <div class="head_area">
+            <h2>{{ourService.title}}</h2>
+            <p>{{ourService.des}}</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="round table_t" *ngFor="let service of ourService.serviceItems">
+                <div class="clearfix cell_t"><i [class]="service.icon"></i>
+                    <h3>{{service.name}}</h3>
+                    <p>{{service.des}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="clients" class="d-flex align-items-center">
+    <div class="container-xxl">
+        <div class="head_area">
+            <h2>{{ourClient.title}}</h2>
+            <p>{{ourClient.des}}</p>
+        </div>
+        <ul>
+            <li *ngFor="let client of ourClient.clientItems">
+                <aside><img [src]="client.url" [alt]="client.name"></aside>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="map">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1474.6940709768623!2d77.2337436286943!3d28.517741379154234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce19c0fcd78d7%3A0xd0b9943fe09c4d1c!2sAmbedkar+Nagar%2C+Block+E%2C+Sector+5%2C+Dakshinpuri%2C+New+Delhi%2C+Delhi+110062!5e0!3m2!1sen!2sin!4v1507896065605"
+        width="600" height="450" frameborder="0" style="border:0;" allowfullscreen></iframe>
+</div>

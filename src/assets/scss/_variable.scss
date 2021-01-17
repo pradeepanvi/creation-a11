@@ -1,0 +1,26 @@
+@mixin call_bg {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin com {
+  width: 100%;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  @include media-breakpoint-down(xs) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .head_area {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  h2 {
+    font-size: 46px;
+    margin-top: 0;
+    @include media-breakpoint-down(xs) {
+      font-size: 30px;
+    }
+  }
+}

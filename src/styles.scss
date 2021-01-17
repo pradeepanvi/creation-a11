@@ -1,11 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap.scss";
 @import "./assets/scss/color";
+@import "./assets/scss/variable";
+@import "./assets/scss/global";
 
 @import "./app/header/header.component.scss";
-
-body{
-    background: radial-gradient(ellipse at center, #fd7801 0%, #fb3601 100%);
-    color: #fff;
-    height: 1200px;
-}
+@import "./app/home/home.component.scss";
