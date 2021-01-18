@@ -262,3 +262,13 @@
     }
   }
 }
+
+#map iframe {
+  width: 100%;
+  height: 650px;
+  border: none;
+  pointer-events: none;
+  @include media-breakpoint-down(xs) {
+    height: 100vh;
+  }
+}

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Homepage } from '../shared/home.interface';
+declare var $: any;
 
 @Component({
   selector: 'app-home',
@@ -23,6 +22,8 @@ export class HomeComponent implements OnInit {
     this.getJSONData();
   }
 
+
+
   getJSONData() {
     this.http
       .get('https://identitycards-3b7a2.firebaseio.com/homePage.json')
@@ -34,9 +35,43 @@ export class HomeComponent implements OnInit {
         this.ourClient = res.ourClient;
         console.log(res);
         setTimeout(() => {
+          this.initSlider();
           // this._detectViewport();
         }, 1000);
       });
+  }
+
+  initSlider() {
+    $('.carousel').slick({
+      dots: false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ]
+    });
   }
 
 }

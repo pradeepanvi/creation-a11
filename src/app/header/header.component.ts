@@ -17,24 +17,27 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleClick() {
-    // fromEvent(document.querySelector('.navbar-toggler'), 'click').subscribe((e) => {
-    //   if (e.currentTarget.className.includes('collapsed')) {
-    //     e.currentTarget.classList.remove('collapsed');
-    //     document.querySelector('.navbar-collapse')?.classList.add('show');
-    //   } else {
-    //     e.currentTarget.classList.add('collapsed');
-    //     document.querySelector('.navbar-collapse')?.classList.remove('show');
-    //   }
-    // })
+    let navbarToggler = document.querySelector('.navbar-toggler') as HTMLButtonElement;
+    let navbarLink = document.querySelector('.navbar-collapse li a') as HTMLAnchorElement;
+    fromEvent(navbarToggler, 'click').subscribe((e) => {
+      // e.target.
+      // if (e..currentTarget.currentTarget.className.includes('collapsed')) {
+      //   e.currentTarget.classList.remove('collapsed');
+      //   document.querySelector('.navbar-collapse')?.classList.add('show');
+      // } else {
+      //   e.currentTarget.classList.add('collapsed');
+      //   document.querySelector('.navbar-collapse')?.classList.remove('show');
+      // }
+    })
 
-    // fromEvent(document.querySelector('.navbar-collapse li a'), 'click').subscribe(() => {
-    //   document.querySelector('.navbar-toggler')?.classList.add('collapsed');
-    //   document.querySelector('.navbar-collapse')?.classList.remove('show');
-    // })
+    fromEvent(navbarLink, 'click').subscribe(() => {
+      document.querySelector('.navbar-toggler')?.classList.add('collapsed');
+      document.querySelector('.navbar-collapse')?.classList.remove('show');
+    })
   }
 
   headerSticky() {
-    var header = document.querySelector('header');
+    var header = document.querySelector('header') as HTMLDivElement;
     //Sticky header
     window.onscroll = function () {
       window.scrollY > 300

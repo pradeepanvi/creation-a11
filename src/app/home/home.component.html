@@ -9,12 +9,11 @@
 </div>
 <div id="samples" class="d-flex align-items-center">
     <div class="container-xxl">
-        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
-            (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
-            <div ngxSlickItem *ngFor="let slide of slider" class="slide">
+        <div class="carousel">
+            <div *ngFor="let slide of slider" class="slide">
                 <img [src]="slide.url" [alt]="slide.name">
             </div>
-        </ngx-slick-carousel>
+        </div>
     </div>
 </div>
 <div id="our_product" class="d-flex align-items-center">
