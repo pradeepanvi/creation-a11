@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
 
 @Component({
@@ -12,9 +13,9 @@ export class HomeComponent implements OnInit {
   ourProduct: any;
   ourService: any;
   ourClient: any;
-  slideConfig = { "slidesToShow": 4, "slidesToScroll": 4 };
-  @Output() breakpoint: EventEmitter<{ event: any, slick: any, breakpoint: any }> = new EventEmitter();
-  constructor(private http: HttpClient) {
+
+  askQF: FormGroup;
+  constructor(private http: HttpClient, private fb: FormBuilder) {
 
   }
 
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
         console.log(res);
         setTimeout(() => {
           this.initSlider();
+          this.initForm();
           // this._detectViewport();
         }, 1000);
       });
@@ -72,6 +74,21 @@ export class HomeComponent implements OnInit {
         },
       ]
     });
+  }
+
+  private initForm() {
+    this.askQF = new FormGroup({
+      name: this.fb.control('', Validators.required),
+      mail: this.fb.control('', Validators.required),
+      phone: this.fb.control('', Validators.required),
+      msg: this.fb.control('', Validators.required),
+    });
+  }
+  onSubmit() {
+    console.log(this.askQF.value);
+    this.http
+      .post('http://pkanvi.com/dev/identitycards-a8/send.php', this.askQF.value)
+      .subscribe((res) => console.log(res));
   }
 
 }

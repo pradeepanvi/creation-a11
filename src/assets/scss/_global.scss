@@ -12,3 +12,48 @@
 img {
   max-width: 100%;
 }
+
+.form-control-big {
+  background: transparent;
+  height: 50px;
+  font-size: 18px;
+  @include media-breakpoint-down(md) {
+    font-size: 14px;
+    height: 35px;
+  }
+}
+textarea.form-control-big {
+  height: 180px;
+  @include media-breakpoint-down(md) {
+    height: 70px;
+  }
+}
+
+.form-control.ng-invalid {
+  border: 1px solid red;
+}
+.form-control.ng-valid {
+  border: 1px solid #4cae4c;
+}
+
+.help-block {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+.btn-big {
+  font-size: 18px;
+  height: 50px;
+  display: block;
+  @include media-breakpoint-down(md) {
+    font-size: 14px;
+    height: 35px;
+  }
+}
+a.btn-big {
+  line-height: 50px;
+  @include media-breakpoint-down(md) {
+    line-height: 35px;
+  }
+}

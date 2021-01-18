@@ -263,6 +263,17 @@
   }
 }
 
+//contact
+#contact {
+  min-height: 100vh;
+  @include com;
+  .form_sec {
+    aside {
+      margin-bottom: 15px;
+    }
+  }
+}
+
 #map iframe {
   width: 100%;
   height: 650px;

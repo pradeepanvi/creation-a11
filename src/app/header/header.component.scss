@@ -64,7 +64,8 @@ header {
       li {
         a {
           color: $cream-color;
-          &.active {
+          &.active,
+          &:hover {
             color: $white-color;
           }
         }
