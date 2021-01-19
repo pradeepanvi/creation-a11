@@ -14,7 +14,13 @@ export class HomeComponent implements OnInit {
   ourService: any;
   ourClient: any;
 
-  askQF: FormGroup;
+  loaderShow = true;
+  askQF = new FormGroup({
+    name: this.fb.control('', Validators.required),
+    mail: this.fb.control('', Validators.required),
+    phone: this.fb.control('', Validators.required),
+    msg: this.fb.control('', Validators.required),
+  });
   constructor(private http: HttpClient, private fb: FormBuilder) {
 
   }
@@ -26,9 +32,27 @@ export class HomeComponent implements OnInit {
 
 
   getJSONData() {
+    let homePageData = localStorage.getItem("homePage");
+    if (homePageData) {
+      let res = JSON.parse(homePageData);
+      this.welcome = res.welcome;
+      this.slider = res.sliderItems;
+      this.ourProduct = res.ourProduct;
+      this.ourService = res.ourService;
+      this.ourClient = res.ourClient;
+      setTimeout(() => {
+        this.initSlider();
+        this.loaderShow = false;
+      }, 1000);
+    } else {
+      this.getFirebaseJSONData();
+    }
+  }
+  getFirebaseJSONData() {
     this.http
       .get('https://identitycards-3b7a2.firebaseio.com/homePage.json')
       .subscribe((res: any) => {
+        localStorage.setItem("homePage", JSON.stringify(res));
         this.welcome = res.welcome;
         this.slider = res.sliderItems;
         this.ourProduct = res.ourProduct;
@@ -37,7 +61,7 @@ export class HomeComponent implements OnInit {
         console.log(res);
         setTimeout(() => {
           this.initSlider();
-          this.initForm();
+          this.loaderShow = false;
           // this._detectViewport();
         }, 1000);
       });
@@ -73,15 +97,6 @@ export class HomeComponent implements OnInit {
           },
         },
       ]
-    });
-  }
-
-  private initForm() {
-    this.askQF = new FormGroup({
-      name: this.fb.control('', Validators.required),
-      mail: this.fb.control('', Validators.required),
-      phone: this.fb.control('', Validators.required),
-      msg: this.fb.control('', Validators.required),
     });
   }
   onSubmit() {

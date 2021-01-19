@@ -11,28 +11,29 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (window.innerWidth < 992) {
-      // this.toggleClick();
+      this.toggleClick();
     }
     this.headerSticky();
   }
 
   toggleClick() {
     let navbarToggler = document.querySelector('.navbar-toggler') as HTMLButtonElement;
-    let navbarLink = document.querySelector('.navbar-collapse li a') as HTMLAnchorElement;
+    let navbarLink = document.querySelectorAll('.navbar-collapse li a') as any;
     fromEvent(navbarToggler, 'click').subscribe((e) => {
-      // e.target.
-      // if (e..currentTarget.currentTarget.className.includes('collapsed')) {
-      //   e.currentTarget.classList.remove('collapsed');
-      //   document.querySelector('.navbar-collapse')?.classList.add('show');
-      // } else {
-      //   e.currentTarget.classList.add('collapsed');
-      //   document.querySelector('.navbar-collapse')?.classList.remove('show');
-      // }
+      if (navbarToggler.className.includes('collapsed')) {
+        navbarToggler.classList.remove('collapsed');
+        document.querySelector('.navbar-collapse')?.classList.add('show');
+      } else {
+        navbarToggler.classList.add('collapsed');
+        document.querySelector('.navbar-collapse')?.classList.remove('show');
+      }
     })
 
     fromEvent(navbarLink, 'click').subscribe(() => {
-      document.querySelector('.navbar-toggler')?.classList.add('collapsed');
-      document.querySelector('.navbar-collapse')?.classList.remove('show');
+      setTimeout(() => {
+        document.querySelector('.navbar-toggler')?.classList.add('collapsed');
+        document.querySelector('.navbar-collapse')?.classList.remove('show');
+      }, 500)
     })
   }
 

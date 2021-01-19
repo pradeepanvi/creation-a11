@@ -1,10 +1,17 @@
-<div id="home">
+<div class="loader" *ngIf="loaderShow">
     <div class="table_t">
         <div class="cell_t">
-            <h1>{{welcome.title}}</h1>
-            <p [innerHtml]="welcome.des"></p>
-            <a class="btn  btn-success" routerLink="shop">{{welcome.btnTxt}}</a>
+            <img src="/assets/images/rings-loader.svg" alt="">
         </div>
+    </div>
+</div>
+    <div id="home">
+        <div class="table_t">
+            <div class="cell_t">
+                <h1>{{welcome.title}}</h1>
+                <p [innerHtml]="welcome.des"></p>
+                <a class="btn  btn-success" routerLink="shop">{{welcome.btnTxt}}</a>
+            </div>
     </div><a class="go_down" href="#samples"></a>
 </div>
 <div id="samples" class="d-flex align-items-center">
@@ -76,32 +83,33 @@
                     <div class="col-lg-6">
                         <aside>
                             <input class="form-control form-control-big" type="text" formControlName="name"
-                                placeholder="Name"><span class="help-block name">Please enter your Name</span>
+                            placeholder="Name"><span class="help-block name">Please enter your Name</span>
                         </aside>
                         <aside>
                             <input class="form-control form-control-big" type="text" formControlName="mail"
-                                placeholder="Email"><span class="help-block mail">Please enter Email ID</span>
+                            placeholder="Email"><span class="help-block mail">Please enter Email ID</span>
                         </aside>
                         <aside>
                             <input class="form-control form-control-big" type="text" formControlName="phone"
-                                placeholder="Phone"><span class="help-block phone">Please enter number only</span>
+                            placeholder="Phone"><span class="help-block phone">Please enter number only</span>
                         </aside>
                     </div>
                     <div class="col-lg-6">
                         <aside>
                             <textarea class="form-control form-control-big" type="text" formControlName="msg"
-                                placeholder="Message"></textarea><span class="help-block msg">Please enter any
+                            placeholder="Message"></textarea><span class="help-block msg">Please enter any
                                 message</span>
-                        </aside>
-                        <input class="btn btn-success btn-big ms-auto" type="submit" value="Send">
-                    </div>                   
-                </div>
-            </form>
+                            </aside>
+                            <input class="btn btn-success btn-big ms-auto" type="submit" value="Send" [disabled]="!askQF.valid">
+                        </div>                   
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div id="map">
-    <iframe
+    <div id="map">
+        <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1474.6940709768623!2d77.2337436286943!3d28.517741379154234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce19c0fcd78d7%3A0xd0b9943fe09c4d1c!2sAmbedkar+Nagar%2C+Block+E%2C+Sector+5%2C+Dakshinpuri%2C+New+Delhi%2C+Delhi+110062!5e0!3m2!1sen!2sin!4v1507896065605"
         width="600" height="450" frameborder="0" style="border:0;" allowfullscreen></iframe>
-</div>
+    </div>
+    
