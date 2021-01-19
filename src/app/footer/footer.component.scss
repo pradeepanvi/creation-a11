@@ -1,0 +1,115 @@
+footer {
+  font-size: 12px;
+  width: 100%;
+  color: $input-bg;
+  background: $color-292929;
+  @include media-breakpoint-up(md) {
+    font-size: 16px;
+  }
+  .top_footer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    h4 {
+      font-weight: normal;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        width: 100%;
+        @include media-breakpoint-up(sm) {
+          width: 50%;
+        }
+        @include media-breakpoint-up(xl) {
+          width: 25%;
+        }
+        a {
+          color: $white-color;
+          text-decoration: none;
+          padding-left: 20px;
+          position: relative;
+          &:before {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 14px;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: block;
+            @include call_bg;
+            background-size: contain;
+            @include media-breakpoint-down(sm) {
+              height: 10px;
+            }
+          }
+        }
+        &.mail a:before {
+          background-image: url("../../assets/images/mail.svg");
+        }
+        &.call a:before {
+          background-image: url("../../assets/images/call.svg");
+        }
+      }
+    }
+  }
+  .bottom_footer {
+    font-size: 12px;
+    border-top: 1px solid $black-color;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .copy_txt {
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+    .social_links {
+      margin-left: auto;
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+        text-align: center;
+      }
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        li {
+          padding-left: 10px;
+          a {
+            width: 20px;
+            height: 20px;
+            @include call_bg;
+            display: block;
+            text-indent: 30px;
+            overflow: hidden;
+          }
+          &.fb a {
+            width: 9px;
+            background-image: url("../../assets/images/facebook.svg");
+          }
+          &.twitter a {
+            width: 22px;
+            background-image: url("../../assets/images/twitter.svg");
+          }
+          &.google a {
+            width: 22px;
+            background-image: url("../../assets/images/google.svg");
+          }
+          &.linkedin a {
+            background-image: url("../../assets/images/linkedin.svg");
+          }
+          &.youtube a {
+            background-image: url("../../assets/images/youtube.svg");
+          }
+        }
+      }
+    }
+  }
+}
