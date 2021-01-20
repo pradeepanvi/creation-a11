@@ -1,115 +1,177 @@
 <div class="loader" *ngIf="loaderShow">
-    <div class="table_t">
-        <div class="cell_t">
-            <img src="/assets/images/rings-loader.svg" alt="">
-        </div>
+  <div class="table_t">
+    <div class="cell_t">
+      <img src="/assets/images/rings-loader.svg" alt="" />
     </div>
+  </div>
 </div>
-    <div id="home">
-        <div class="table_t">
-            <div class="cell_t">
-                <h1>{{welcome.title}}</h1>
-                <p [innerHtml]="welcome.des"></p>
-                <a class="btn  btn-success" routerLink="shop">{{welcome.btnTxt}}</a>
-            </div>
-    </div><a class="go_down" href="#samples"></a>
+<div id="home">
+  <div class="table_t">
+    <div class="cell_t">
+      <h1>{{ welcome.title }}</h1>
+      <p [innerHtml]="welcome.des"></p>
+      <a class="btn btn-success" routerLink="shop">{{ welcome.btnTxt }}</a>
+    </div>
+  </div>
+  <a class="go_down" href="#samples"></a>
 </div>
 <div id="samples" class="d-flex align-items-center">
-    <div class="container-xxl">
-        <div class="carousel">
-            <div *ngFor="let slide of slider" class="slide">
-                <img [src]="slide.url" [alt]="slide.name">
-            </div>
-        </div>
+  <div class="container-xxl">
+    <div class="carousel">
+      <div *ngFor="let slide of slider" class="slide">
+        <img [src]="slide.url" [alt]="slide.name" />
+      </div>
     </div>
+  </div>
 </div>
 <div id="our_product" class="d-flex align-items-center">
-    <div class="container-xxl">
-        <div class="head_area">
-            <h2>{{ourProduct.title}}</h2>
-            <p>{{ourProduct.des}}</p>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-md-3" *ngFor="let product of ourProduct.productItems">
-                <aside>
-                    <div class="img_area"><img [src]="product.url" [alt]="product.name"></div>
-                    <div class="txt_area">
-                        <p class="head">{{product.name}}</p>
-                        <p>{{product.des}}</p>
-                    </div>
-                </aside>
-            </div>
-        </div>
+  <div class="container-xxl">
+    <div class="head_area">
+      <h2>{{ ourProduct.title }}</h2>
+      <p>{{ ourProduct.des }}</p>
     </div>
+    <div class="row">
+      <div
+        class="col-sm-6 col-md-3"
+        *ngFor="let product of ourProduct.productItems"
+      >
+        <aside>
+          <div class="img_area">
+            <img [src]="product.url" [alt]="product.name" />
+          </div>
+          <div class="txt_area">
+            <p class="head">{{ product.name }}</p>
+            <p>{{ product.des }}</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="services" class="d-flex align-items-center">
-    <div class="container-xxl">
-        <div class="head_area">
-            <h2>{{ourService.title}}</h2>
-            <p>{{ourService.des}}</p>
-        </div>
-        <div class="row justify-content-center">
-            <div class="round table_t" *ngFor="let service of ourService.serviceItems">
-                <div class="clearfix cell_t"><i [class]="service.icon"></i>
-                    <h3>{{service.name}}</h3>
-                    <p>{{service.des}}</p>
-                </div>
-            </div>
-        </div>
+  <div class="container-xxl">
+    <div class="head_area">
+      <h2>{{ ourService.title }}</h2>
+      <p>{{ ourService.des }}</p>
     </div>
+    <div class="row justify-content-center">
+      <div
+        class="round table_t"
+        *ngFor="let service of ourService.serviceItems"
+      >
+        <div class="clearfix cell_t">
+          <i [class]="service.icon"></i>
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.des }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="clients" class="d-flex align-items-center">
-    <div class="container-xxl">
-        <div class="head_area">
-            <h2>{{ourClient.title}}</h2>
-            <p>{{ourClient.des}}</p>
-        </div>
-        <ul>
-            <li *ngFor="let client of ourClient.clientItems">
-                <aside><img [src]="client.url" [alt]="client.name"></aside>
-            </li>
-        </ul>
+  <div class="container-xxl">
+    <div class="head_area">
+      <h2>{{ ourClient.title }}</h2>
+      <p>{{ ourClient.des }}</p>
     </div>
+    <ul>
+      <li *ngFor="let client of ourClient.clientItems">
+        <aside><img [src]="client.url" [alt]="client.name" /></aside>
+      </li>
+    </ul>
+  </div>
 </div>
 <div id="contact" class="d-flex align-items-center">
-    <div class="container">
-        <div class="head_area">
-            <h2>Ask Question</h2>
-            <p>Whether you would like to request a demo. We'd love to hear from you.</p>
-        </div>
-        <div class="form_sec col-md-8 offset-md-2">
-            <form [formGroup]="askQF" class="bottomform" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <aside>
-                            <input class="form-control form-control-big" type="text" formControlName="name"
-                            placeholder="Name"><span class="help-block name">Please enter your Name</span>
-                        </aside>
-                        <aside>
-                            <input class="form-control form-control-big" type="text" formControlName="mail"
-                            placeholder="Email"><span class="help-block mail">Please enter Email ID</span>
-                        </aside>
-                        <aside>
-                            <input class="form-control form-control-big" type="text" formControlName="phone"
-                            placeholder="Phone"><span class="help-block phone">Please enter number only</span>
-                        </aside>
-                    </div>
-                    <div class="col-lg-6">
-                        <aside>
-                            <textarea class="form-control form-control-big" type="text" formControlName="msg"
-                            placeholder="Message"></textarea><span class="help-block msg">Please enter any
-                                message</span>
-                            </aside>
-                            <input class="btn btn-success btn-big ms-auto" type="submit" value="Send" [disabled]="!askQF.valid">
-                        </div>                   
-                    </div>
-                </form>
+  <div class="container-xxl">
+    <div class="form_sec">
+      <div class="head_area">
+        <h2>Ask Question</h2>
+        <p>
+          Whether you would like to request a demo. We'd love to hear from you.
+        </p>
+      </div>
+      <div class="col-md-8 offset-md-2">
+        <form [formGroup]="askQF" class="bottomform" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <aside>
+                <input
+                  class="form-control form-control-big"
+                  type="text"
+                  formControlName="name"
+                  placeholder="Name"
+                /><span class="help-block name">Please enter your Name</span>
+              </aside>
+              <aside>
+                <input
+                  class="form-control form-control-big"
+                  type="email"
+                  formControlName="mail"
+                  placeholder="Email"
+                /><span class="help-block mail">Please enter Email ID</span>
+              </aside>
+              <aside>
+                <input
+                  class="form-control form-control-big"
+                  type="text"
+                  formControlName="phone"
+                  placeholder="Phone"
+                /><span class="help-block phone">Please enter number only</span>
+              </aside>
             </div>
+            <div class="col-lg-6">
+              <aside>
+                <textarea
+                  class="form-control form-control-big"
+                  type="text"
+                  formControlName="msg"
+                  placeholder="Message"
+                ></textarea
+                ><span class="help-block msg">Please enter any message</span>
+              </aside>
+              <input
+                class="btn btn-success btn-big ms-auto"
+                type="submit"
+                value="Send"
+                [disabled]="!askQF.valid"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="response_msg thank-you">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h5 class="h1">
+            Your query has been sent successfully.<br />We will get back to you
+            seen.
+          </h5>
+          <button class="btn btn-primary" (click)="removeClass('thank-you')">
+            Sent another query
+          </button>
         </div>
+      </div>
     </div>
-    <div id="map">
-        <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1474.6940709768623!2d77.2337436286943!3d28.517741379154234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce19c0fcd78d7%3A0xd0b9943fe09c4d1c!2sAmbedkar+Nagar%2C+Block+E%2C+Sector+5%2C+Dakshinpuri%2C+New+Delhi%2C+Delhi+110062!5e0!3m2!1sen!2sin!4v1507896065605"
-        width="600" height="450" frameborder="0" style="border:0;" allowfullscreen></iframe>
+    <div class="response_msg went-wrong">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h5 class="h1">Something went wrong!!</h5>
+          <button class="btn btn-danger" (click)="removeClass('went-wrong')">
+            Sent query again
+          </button>
+        </div>
+      </div>
     </div>
-    
+  </div>
+</div>
+<div id="map">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1474.6940709768623!2d77.2337436286943!3d28.517741379154234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce19c0fcd78d7%3A0xd0b9943fe09c4d1c!2sAmbedkar+Nagar%2C+Block+E%2C+Sector+5%2C+Dakshinpuri%2C+New+Delhi%2C+Delhi+110062!5e0!3m2!1sen!2sin!4v1507896065605"
+    width="600"
+    height="450"
+    frameborder="0"
+    style="border: 0"
+    allowfullscreen
+  ></iframe>
+</div>

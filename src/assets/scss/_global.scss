@@ -34,7 +34,7 @@ textarea.form-control-big {
   }
 }
 
-.form-control.ng-invalid {
+.form-control.ng-invalid.ng-dirty {
   border: 1px solid red;
   & + .help-block {
     display: block;

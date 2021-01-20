@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
   loaderShow = true;
   askQF = new FormGroup({
     name: this.fb.control('', Validators.required),
-    mail: this.fb.control('', Validators.required),
-    phone: this.fb.control('', Validators.required),
+    mail: this.fb.control('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+    phone: this.fb.control('', [Validators.required]),
     msg: this.fb.control('', Validators.required),
   });
   constructor(private http: HttpClient, private fb: FormBuilder) {
@@ -100,10 +100,19 @@ export class HomeComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(this.askQF.value);
     this.http
       .post('http://pkanvi.com/dev/identitycards-a8/send.php', this.askQF.value)
-      .subscribe((res) => console.log(res));
+      .subscribe(() => {
+        this.addClass('thank-you');
+      });
+  }
+
+  addClass(className: string) {
+    document.querySelector('#contact')?.classList.add(className);
+  }
+  removeClass(className: string) {
+    this.askQF.reset();
+    document.querySelector('#contact')?.classList.remove(className);
   }
 
 }

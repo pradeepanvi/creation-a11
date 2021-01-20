@@ -272,6 +272,29 @@
       margin-bottom: 15px;
     }
   }
+  .response_msg {
+    display: none;
+    text-align: center;
+    h1 {
+      margin-bottom: 20px;
+    }
+  }
+  &.thank-you,
+  &.went-wrong {
+    .form_sec {
+      display: none;
+    }
+  }
+  &.thank-you {
+    .thank-you {
+      display: block;
+    }
+  }
+  &.went-wrong {
+    .went-wrong {
+      display: block;
+    }
+  }
 }
 
 #map iframe {
