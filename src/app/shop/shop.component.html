@@ -1,0 +1,101 @@
+<div id="shops">
+  <div class="container">
+    <div class="head_area">
+      <h2>Shops</h2>
+      <p>Checkout your cards, dori and holder</p>
+    </div>
+    <h3>Card</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let card of cardItems">
+        <div class="card mb-4 shadow-sm">
+          <img [src]="card.imgURL" />
+          <div class="card-body">
+            <p class="card-title">{{ card.name }}</p>
+            <p class="card-text">{{ card.des }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Cart
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Wishlist
+                </button>
+              </div>
+              <small class="text-muted">{{ card.price }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Dori</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let dori of doriItems">
+        <div class="card mb-4 shadow-sm">
+          <img [src]="dori.imgURL" />
+          <div class="card-body">
+            <p class="card-title">{{ dori.name }}</p>
+            <p class="card-text">{{ dori.des }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Cart
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Wishlist
+                </button>
+              </div>
+              <small class="text-muted">{{ dori.price }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3>Holders</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let holder of holderItems">
+        <div class="card mb-4 shadow-sm">
+          <img [src]="holder.imgURL" />
+          <div class="card-body">
+            <p class="card-title">{{ holder.name }}</p>
+            <p class="card-text">{{ holder.des }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Cart
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Wishlist
+                </button>
+              </div>
+              <small class="text-muted">{{ holder.price }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3>Lanyard</h3>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let lanyard of lanyardItems">
+        <div class="card mb-4 shadow-sm">
+          <img [src]="lanyard.imgURL" />
+          <div class="card-body">
+            <p class="card-title">{{ lanyard.name }}</p>
+            <p class="card-text">{{ lanyard.des }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Cart
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to Wishlist
+                </button>
+              </div>
+              <small class="text-muted">{{ lanyard.price }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

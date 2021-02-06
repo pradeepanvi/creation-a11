@@ -8,8 +8,12 @@ header {
   transition: 0.5s background;
   background: transparent;
   z-index: 100;
-  &.fixed {
+  &.fixed,
+  &.fixed-inner {
     background: $black-color;
+  }
+  &.fixed-inner {
+    position: static;
   }
 }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { fromEvent } from "rxjs";
 
 @Component({
@@ -6,14 +7,37 @@ import { fromEvent } from "rxjs";
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  previousUrl: any;
+  constructor(private render: Renderer2, private router: Router) {
+    this.router.events.subscribe(
+      (event) => {
+        if (event instanceof NavigationStart) {
+          //for current page name
+          let currentUrlSlug = event.url.slice(1);
+          let currentUrlSlug2 = 'fixed-inner';
+          console.log(currentUrlSlug);
+          if (this.previousUrl) {
+            this.render.removeClass(document.querySelector('header'), currentUrlSlug2);
+            this.render.removeClass(document.querySelector('header'), 'd-none');
+            this.headerSticky();
+          }
+          if (currentUrlSlug && currentUrlSlug.includes('#') != true) {
+            this.render.addClass(document.querySelector('header'), currentUrlSlug2);
+          }
+          if (currentUrlSlug.includes('admin')) {
+            this.render.addClass(document.querySelector('header'), 'd-none');
+            this.render.addClass(document.querySelector('footer'), 'd-none');
+          }
+          this.previousUrl = currentUrlSlug;
+        }
+      }
+    )
+  }
 
   ngOnInit(): void {
     if (window.innerWidth < 992) {
       this.toggleClick();
     }
-    this.headerSticky();
   }
 
   toggleClick() {
