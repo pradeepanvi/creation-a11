@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
   }
   onSubmit() {
     this.http
-      .post('http://pkanvi.com/dev/identitycards-a8/send.php', this.askQF.value)
+      .post('http://beta.identitycards.co.in/send.php', this.askQF.value)
       .subscribe(() => {
         this.addClass('thank-you');
       });
