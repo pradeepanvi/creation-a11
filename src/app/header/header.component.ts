@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
             this.headerSticky();
           }
           if (currentUrlSlug && currentUrlSlug.includes('#') != true) {
+            this.render.addClass(document.body, currentUrlSlug);
             this.render.addClass(document.querySelector('header'), currentUrlSlug2);
           }
           if (currentUrlSlug.includes('admin')) {

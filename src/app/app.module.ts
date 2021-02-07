@@ -12,6 +12,10 @@ import { FooterComponent } from './footer/footer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ShopComponent } from './shop/shop.component';
+import { CartSectionComponent } from './cart-section/cart-section.component';
+import { CartComponent } from './cart-section/cart/cart.component';
+import { CartModule } from './cart-section/cart.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,7 @@ import { ShopComponent } from './shop/shop.component';
     HeaderComponent,
     HomeComponent,
     FooterComponent,
-    ShopComponent
+    ShopComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,8 @@ import { ShopComponent } from './shop/shop.component';
     HttpClientModule,
     SlickCarouselModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

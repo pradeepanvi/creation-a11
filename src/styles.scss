@@ -11,3 +11,10 @@
 @import "./app/footer/footer.component.scss";
 
 @import "./app/shop/shop.component.scss";
+
+body.cart {
+  background: $bg-color;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
