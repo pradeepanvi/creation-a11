@@ -2,7 +2,7 @@
   <div class="container">
     <div class="head_area">
       <h2>Shops</h2>
-      <p>Checkout your cards, dori and holder</p>
+      <p>Checkout your cards, dori and holder <a routerLink="/cart">cart</a></p>
     </div>
     <h3>Card</h3>
     <div class="row">
@@ -12,13 +12,15 @@
           <div class="card-body">
             <p class="card-title">{{ card.name }}</p>
             <p class="card-text">{{ card.des }}</p>
+            <p>{{ card.product_id }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
+                <button
+                  type="button"
+                  (click)="addToCart(card.product_id)"
+                  class="btn btn-sm btn-outline-secondary"
+                >
                   Add to Cart
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Add to Wishlist
                 </button>
               </div>
               <small class="text-muted">{{ card.price }}</small>
@@ -36,13 +38,15 @@
           <div class="card-body">
             <p class="card-title">{{ dori.name }}</p>
             <p class="card-text">{{ dori.des }}</p>
+            <p>{{ dori.product_id }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
+                <button
+                  type="button"
+                  (click)="addToCart(dori.product_id)"
+                  class="btn btn-sm btn-outline-secondary"
+                >
                   Add to Cart
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Add to Wishlist
                 </button>
               </div>
               <small class="text-muted">{{ dori.price }}</small>
@@ -59,13 +63,15 @@
           <div class="card-body">
             <p class="card-title">{{ holder.name }}</p>
             <p class="card-text">{{ holder.des }}</p>
+            <p>{{ holder.product_id }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
+                <button
+                  type="button"
+                  (click)="addToCart(holder.product_id)"
+                  class="btn btn-sm btn-outline-secondary"
+                >
                   Add to Cart
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Add to Wishlist
                 </button>
               </div>
               <small class="text-muted">{{ holder.price }}</small>
@@ -82,13 +88,15 @@
           <div class="card-body">
             <p class="card-title">{{ lanyard.name }}</p>
             <p class="card-text">{{ lanyard.des }}</p>
+            <p>{{ lanyard.product_id }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
+                <button
+                  type="button"
+                  (click)="addToCart(lanyard.product_id)"
+                  class="btn btn-sm btn-outline-secondary"
+                >
                   Add to Cart
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Add to Wishlist
                 </button>
               </div>
               <small class="text-muted">{{ lanyard.price }}</small>

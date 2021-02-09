@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from '../shared/global.service';
 
 @Component({
   selector: 'app-shop',
@@ -10,7 +11,9 @@ export class ShopComponent implements OnInit {
   holderItems: any;
   cardItems: any;
   lanyardItems: any;
-  constructor(private http: HttpClient) { }
+
+  cartItem: string[] = [];
+  constructor(private http: HttpClient, private globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.getJSONData();
@@ -38,6 +41,15 @@ export class ShopComponent implements OnInit {
         this.holderItems = res.holderItems;
         this.lanyardItems = res.lanyardItems;
       });
+  }
+
+  addToCart(id: string) {
+    this.cartItem.push(id),
+      this.http.put('https://identitycards-3b7a2.firebaseio.com/cartPage.json', this.cartItem).subscribe(
+        (res) => {
+          console.log(res);
+        }
+      )
   }
 
 }

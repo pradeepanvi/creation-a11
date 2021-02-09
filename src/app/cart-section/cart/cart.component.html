@@ -1,66 +1,58 @@
-<div class="row">
+<div class="row" *ngIf="finalCartItems.length">
   <div class="col-lg-9">
     <section>
       <h1>{{ title }}</h1>
-      <form [formGroup]="cartForm" (ngSubmit)="onSubmit()">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <td colspan="3">
-                <button class="txt_btn">Select all items</button>
-              </td>
-              <td>Price</td>
-            </tr>
-          </thead>
-          <tbody formArrayName="cartItems">
-            <tr
-              *ngFor="let cart of cartItemsArray.controls; let i = index"
-              [formGroupName]="i"
-            >
-              <td>
-                <mat-checkbox color="primary"></mat-checkbox>
-              </td>
-              <td><img src="../../../assets/images/cards/card-1.jpg" /></td>
-              <td>
-                <p>
-                  Sony WI-XB400 Wireless Extra Bass in-Ear Headphones with 15
-                  Hours Battery Life, Quick Charge, Magnetic Earbuds, Tangle
-                  Free Cord, Bluetooth Ver 5.0, Headset with Mic for Phone Calls
-                  – (Blue)
-                </p>
-                <ul>
-                  <li>
-                    <mat-form-field appearance="fill">
-                      <mat-label>Favorite food</mat-label>
-                      <mat-select>
-                        <mat-option
-                          *ngFor="let food of foods"
-                          [value]="food.value"
-                        >
-                          {{ food.viewValue }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </li>
-                  <li>
-                    <button class="txt_btn" (click)="removeCart(i)">
-                      Delete
-                    </button>
-                  </li>
-                </ul>
-              </td>
-              <td>2,990.00</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                Subtotal : <strong>{{ subTotal }}</strong>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <td colspan="3">Price</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cart of finalCartItems; let i = index">
+            <td><img [src]="cart.imgURL" /></td>
+            <td>
+              <p>{{ cart.des }}</p>
+              <ul>
+                <li>
+                  <div class="form-floating">
+                    <select
+                      class="form-select"
+                      id="floatingSelect{{ cart.product_id }}"
+                      aria-label="Select product quantity"
+                      [(ngModel)]="cart.quantity"
+                      (ngModelChange)="updatePrice()"
+                    >
+                      <option
+                        *ngFor="let quan of quantity"
+                        [value]="quan.value"
+                      >
+                        {{ quan.value }}
+                      </option>
+                    </select>
+                    <label for="floatingSelect{{ cart.product_id }}"
+                      >Quantity</label
+                    >
+                  </div>
+                </li>
+                <li>
+                  <button class="txt_btn" (click)="removeCart(i)">
+                    Delete
+                  </button>
+                </li>
+              </ul>
+            </td>
+            <td>{{ cart.price * cart.quantity }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              Subtotal : <strong>{{ subTotal }}</strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </section>
   </div>
   <div class="col-lg-3">
@@ -77,7 +69,33 @@
         Continue Shopping
       </button>
       <div class="or_txt"><span>OR</span></div>
-      <button type="submit" mat-raised-button color="primary">Checkout</button>
+      <button mat-raised-button color="primary" (click)="checkout()">
+        Checkout
+      </button>
     </section>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loaderShow && !finalCartItems.length">
+  <div class="col-lg-12">
+    <section>
+      <h1>Cart is empty</h1>
+      <button
+        type="button"
+        mat-raised-button
+        class="ml-auto"
+        (click)="continueShop()"
+      >
+        Continue Shopping
+      </button>
+    </section>
+  </div>
+</div>
+
+<div class="loader_inner" *ngIf="loaderShow">
+  <div class="table_t">
+    <div class="cell_t">
+      <img src="/assets/images/rings-loader.svg" alt="" />
+    </div>
   </div>
 </div>

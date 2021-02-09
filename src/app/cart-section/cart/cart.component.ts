@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalService } from 'src/app/shared/global.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,86 +12,83 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   title = "Shopping Cart";
-  foods = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' }
+  quantity = [
+    { value: '1' },
+    { value: '2' },
+    { value: '3' },
+    { value: '4' },
+    { value: '5' },
+    { value: '6' },
+    { value: '7' },
+    { value: '8' },
+    { value: '9' },
+    { value: '10+' }
   ];
-  cartV: any = [
-    { name: 'id', model: 'm-dl', quantity: 1, price: 35 },
-    { name: 'id card', model: 'm-dl', quantity: 1, price: 25 },
-    { name: 'id', model: 'm-dl', quantity: 1, price: 25 },
-    { name: 'id dori', model: 'm-dl', quantity: 1, price: 25 }
-  ]
-  subTotal = 0;
-  priceTotal = 0;
-  cartForm = new FormGroup({
-    cartItems: this.fb.array([]),
-    subTotal: this.fb.control(this.subTotal),
-    priceTotal: this.fb.control(this.priceTotal)
-  });
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) { }
+
+  cartItems: any;
+  shopItems: any;
+
+  finalCartItems: any = [];
+  subTotal: number = 0;
+  loaderShow = true;
+  constructor(private http: HttpClient, private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private globalService: GlobalService) { }
 
   ngOnInit(): void {
-    this.initForm();
-    this.addCartItem();
-    for (var i of this.cartItemsArray.controls) {
-      this.subTotal += i.value.price;
-      this.priceTotal += i.value.quantity * i.value.price;
-    }
+    this.getCartItem();
   }
 
-  initItem(name: any, model: any, quantity: number, price: number) {
-    return this.fb.group({
-      name: name,
-      model: model,
-      quantity: quantity,
-      price: price,
-      total: quantity * price
+  getCartItem() {
+    this.http.get('https://identitycards-3b7a2.firebaseio.com/cartPage.json').subscribe(
+      (res) => {
+        this.cartItems = res;
+        this.getShopItem();
+      }
+    )
+  }
+
+  private getShopItem() {
+    this.http.get('https://identitycards-3b7a2.firebaseio.com/shopPage.json').subscribe(
+      (res) => {
+        this.shopItems = res;
+        this.setFinalCartItems();
+      }
+    )
+  }
+
+  private setFinalCartItems() {
+    Object.keys(this.shopItems).forEach((keys) => {
+      this.shopItems[keys].forEach((obj: any) => {
+        this.cartItems.forEach((item: any) => {
+          if (obj.product_id == item) {
+            Object.assign(obj, { quantity: 1 })
+            this.finalCartItems.push(obj);
+            this.updateSubTotal(obj.price)
+          }
+        })
+      })
     })
+    this.loaderShow = false;
+  }
+  private updateSubTotal(price: number) {
+    this.subTotal += price
   }
 
-  get cartItemsArray() {
-    return this.cartForm.get("cartItems") as FormArray;
-  }
-
-  addCartItem() {
-    for (var i of this.cartV) {
-      this.cartItemsArray.push(this.initItem(i.name, i.model, i.quantity, i.price))
-    }
+  updatePrice() {
+    this.subTotal = 0;
+    this.finalCartItems.forEach((item: any) => {
+      this.updateSubTotal(item.price * item.quantity);
+    })
   }
 
   removeCart(index: number) {
-    this.cartItemsArray.removeAt(index);
+    this.finalCartItems.splice(index, 1);
+    this.updatePrice();
   }
-
-  private initForm() {
-    this.cartForm = this.fb.group({
-      cartItems: this.fb.array([]),
-      subTotal: this.subTotal,
-      priceTotal: this.priceTotal
-    })
-  }
-
-  onSubmit() {
-    // this._globalSerive.final_order.push({ order: this.cartForm.value })
-    this.router.navigate(["address"], { relativeTo: this.route });
-  }
-
-  ngDoCheck() {
-    this.priceTotal = 0;
-    for (var i of this.cartItemsArray.controls) {
-      this.priceTotal += i.value.quantity * i.value.price;
-    }
-    for (var x = 0; x < this.cartForm.value.cartItems.length; x++) {
-      this.cartForm.value.cartItems[x].total = this.cartForm.value.cartItems[x].quantity * this.cartForm.value.cartItems[x].price;
-    }
-    this.cartForm.value.subTotal = this.subTotal;
-    this.cartForm.value.priceTotal = this.priceTotal;
-  }
-
   continueShop() {
     this.router.navigate(['../shop'], { relativeTo: this.route });
+  }
+  checkout() {
+    this.globalService.checkout(this.finalCartItems, this.subTotal);
   }
 
 }

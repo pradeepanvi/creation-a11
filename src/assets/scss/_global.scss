@@ -102,3 +102,20 @@ a.btn-big {
     }
   }
 }
+
+.loader_inner {
+  z-index: 100;
+  width: 100%;
+  min-height: 100vh;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #673ab7;
+  text-align: center;
+  .table_t {
+    height: 100vh;
+    text-align: center;
+    img {
+      width: 200px;
+    }
+  }
+}
