@@ -1,0 +1,50 @@
+{
+  "users" : {
+    "NuFgoUkCLaVgsyXYF2aPztjkRPc2" : {
+      "addressItems" : [ {
+        "address1" : "346 1st floor",
+        "address2" : "Gali No 12, RGB Flats",
+        "addressType" : "home",
+        "city" : "Tagore Garden",
+        "landmark" : "Cement Godown",
+        "mobile" : "9818896233",
+        "name" : "Pradeep Kumar",
+        "pincode" : "110027",
+        "state" : "Delhi"
+      } ],
+      "creationTime" : "Sat, 16 Nov 2019 12:49:57 GMT",
+      "displayName" : "",
+      "email" : "pkanvi@test.com",
+      "emailVerified" : false,
+      "lastSignInTime" : "Sat, 16 Nov 2019 12:49:57 GMT",
+      "phoneNumber" : "121212",
+      "photoURL" : "test",
+      "uid" : "NuFgoUkCLaVgsyXYF2aPztjkRPc2"
+    },
+    "PKnisXLZkxROWgLKdCmHxO9Jui52" : {
+      "creationTime" : "Sat, 30 Nov 2019 10:13:26 GMT",
+      "displayName" : "Vikas",
+      "email" : "vikdesiger485@gmail.com",
+      "emailVerified" : "",
+      "lastSignInTime" : "Sat, 30 Nov 2019 10:13:26 GMT",
+      "phoneNumber" : "9987",
+      "photoURL" : "9818896233",
+      "uid" : "PKnisXLZkxROWgLKdCmHxO9Jui52"
+    },
+    "QBnNY5FdCveQVK0nknVlweGJPIS2" : {
+      "creationTime" : "Sat, 09 Nov 2019 13:42:30 GMT",
+      "email" : "stac.pradeep@gmail.com",
+      "emailVerified" : false,
+      "isAnonymous" : false,
+      "isNewUser" : true,
+      "lastSignInTime" : "Sat, 09 Nov 2019 13:42:30 GMT",
+      "uid" : "QBnNY5FdCveQVK0nknVlweGJPIS2"
+    },
+    "s9VAksJR5ZQufsQ3DyStv7WtS6i2" : {
+      "creationTime" : "Sat, 09 Nov 2019 13:24:54 GMT",
+      "email" : "pkanvi@test.com",
+      "emailVerified" : false,
+      "lastSignInTime" : "Sat, 09 Nov 2019 13:24:54 GMT"
+    }
+  }
+}

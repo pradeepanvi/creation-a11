@@ -12,9 +12,16 @@
 
 @import "./app/shop/shop.component.scss";
 
-body.cart {
+body.cart,
+body.cart\/address {
   background: $bg-color;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

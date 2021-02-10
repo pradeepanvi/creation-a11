@@ -5,11 +5,15 @@ import { CartRoutingModule } from "./cart-routing.module";
 import { CartSectionComponent } from "./cart-section.component";
 import { CartComponent } from "./cart/cart.component";
 import { MaterialModule } from "./material/material.module";
+import { AddressComponent } from './address/address.component';
+import { EditAddressComponent } from './address/edit-address/edit-address.component';
 
 @NgModule({
     declarations: [
         CartSectionComponent,
         CartComponent,
+        AddressComponent,
+        EditAddressComponent,
     ],
     imports: [
         CommonModule,

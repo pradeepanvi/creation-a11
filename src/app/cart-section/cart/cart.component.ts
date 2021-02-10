@@ -89,6 +89,7 @@ export class CartComponent implements OnInit {
   }
   checkout() {
     this.globalService.checkout(this.finalCartItems, this.subTotal);
+    this.router.navigate(['address'], { relativeTo: this.route });
   }
 
 }

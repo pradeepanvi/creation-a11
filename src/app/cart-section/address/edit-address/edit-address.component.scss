@@ -1,0 +1,14 @@
+.example-container > * {
+  width: 100%;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+body {
+  background: #e2e5ea;
+  section {
+    margin: 50px 0;
+    background: #fff;
+    padding: 20px;
+  }
+}
