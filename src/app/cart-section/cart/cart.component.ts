@@ -38,17 +38,37 @@ export class CartComponent implements OnInit {
   }
 
   getCartItem() {
-    this.http.get('https://identitycards-3b7a2.firebaseio.com/cartPage.json').subscribe(
+    const cartPageData = sessionStorage.getItem("cartPage");
+    if (cartPageData) {
+      this.cartItems = JSON.parse(cartPageData);
+      this.getShopItem();
+    } else {
+      this.getFirebaseCartItem();
+    }
+  }
+
+  private getFirebaseCartItem() {
+    this.globalService.getCartPage().subscribe(
       (res) => {
+        sessionStorage.setItem("cartPage", JSON.stringify(res));
         this.cartItems = res;
-        this.getShopItem();
+        this.getFirebaseShopItem();
       }
     )
   }
 
   private getShopItem() {
-    this.http.get('https://identitycards-3b7a2.firebaseio.com/shopPage.json').subscribe(
+    const shopPageData = sessionStorage.getItem("shopPage");
+    if (shopPageData) {
+      this.shopItems = JSON.parse(shopPageData);
+      this.setFinalCartItems();
+    }
+  }
+
+  private getFirebaseShopItem() {
+    this.globalService.getShopPage().subscribe(
       (res) => {
+        sessionStorage.setItem("shopPage", JSON.stringify(res));
         this.shopItems = res;
         this.setFinalCartItems();
       }

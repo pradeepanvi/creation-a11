@@ -27,15 +27,15 @@ export class EditAddressComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      this._globalSerive.updateAddress('NuFgoUkCLaVgsyXYF2aPztjkRPc2', this.id, this.addressForm.value);
+      this._globalSerive.updateAddress(this.id, this.addressForm.value);
     } else {
-      this._globalSerive.addAddress('NuFgoUkCLaVgsyXYF2aPztjkRPc2', this.addressForm.value);
+      this._globalSerive.addAddress(this.addressForm.value);
     }
   }
 
   private initForm() {
     if (this.editMode) {
-      this._globalSerive.getAddress('NuFgoUkCLaVgsyXYF2aPztjkRPc2').subscribe(
+      this._globalSerive.getAddress().subscribe(
         (res: any) => {
           const editAddress = res[this.id];
           this.addressForm = this.fb.group({

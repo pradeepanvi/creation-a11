@@ -19,37 +19,54 @@ export class ShopComponent implements OnInit {
     this.getJSONData();
   }
 
+  getCartData() {
+    const cartPageData = sessionStorage.getItem("cartPage");
+    if (cartPageData) {
+      this.cartItem = JSON.parse(cartPageData);
+    } else {
+      this.getFirebaseCartData();
+    }
+  }
+
+  private getFirebaseCartData() {
+    this.globalService.getCartPage().subscribe(
+      (res: any) => {
+        sessionStorage.setItem("cartPage", JSON.stringify(res));
+        this.cartItem = res;
+      }
+    )
+  }
+
   getJSONData() {
-    let shopPageData = localStorage.getItem("shopPage");
+    const shopPageData = sessionStorage.getItem("shopPage");
     if (shopPageData) {
       let res = JSON.parse(shopPageData);
       this.doriItems = res.doriItems;
       this.cardItems = res.cardItems;
       this.holderItems = res.holderItems;
       this.lanyardItems = res.lanyardItems;
+      this.getCartData();
     } else {
       this.getFirebaseJSONData();
     }
   }
 
   getFirebaseJSONData() {
-    this.http.get('https://identitycards-3b7a2.firebaseio.com/shopPage.json').subscribe(
+    this.globalService.getShopPage().subscribe(
       (res: any) => {
-        localStorage.setItem("shopPage", JSON.stringify(res));
+        Object.assign(res, { addedToCart: false })
+        sessionStorage.setItem("shopPage", JSON.stringify(res));
         this.doriItems = res.doriItems;
         this.cardItems = res.cardItems;
         this.holderItems = res.holderItems;
         this.lanyardItems = res.lanyardItems;
+        this.getCartData();
       });
   }
-
   addToCart(id: string) {
-    this.cartItem.push(id),
-      this.http.put('https://identitycards-3b7a2.firebaseio.com/cartPage.json', this.cartItem).subscribe(
-        (res) => {
-          console.log(res);
-        }
-      )
+    this.cartItem.push(id);
+    this.globalService.addToCart(this.cartItem);
+    sessionStorage.removeItem("cartPage");
   }
 
 }

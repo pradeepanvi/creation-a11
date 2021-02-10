@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GlobalService } from '../shared/global.service';
 declare var $: any;
 
 @Component({
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
     phone: this.fb.control('', [Validators.required]),
     msg: this.fb.control('', Validators.required),
   });
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private globalService: GlobalService, private fb: FormBuilder) {
 
   }
 
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
 
 
   getJSONData() {
-    let homePageData = localStorage.getItem("homePage");
+    const homePageData = sessionStorage.getItem("homePage");
     if (homePageData) {
       let res = JSON.parse(homePageData);
       this.welcome = res.welcome;
@@ -49,10 +50,9 @@ export class HomeComponent implements OnInit {
     }
   }
   getFirebaseJSONData() {
-    this.http
-      .get('https://identitycards-3b7a2.firebaseio.com/homePage.json')
+    this.globalService.getHomePage()
       .subscribe((res: any) => {
-        localStorage.setItem("homePage", JSON.stringify(res));
+        sessionStorage.setItem("homePage", JSON.stringify(res));
         this.welcome = res.welcome;
         this.slider = res.sliderItems;
         this.ourProduct = res.ourProduct;

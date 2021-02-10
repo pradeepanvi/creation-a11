@@ -17,8 +17,20 @@ export class AddressComponent implements OnInit {
   }
 
   getAddressList() {
-    this._globalSerive.getAddress('NuFgoUkCLaVgsyXYF2aPztjkRPc2').subscribe(
-      (res: any) => this.addressList = res
+    const addressListData = sessionStorage.getItem("addressList");
+    if (addressListData) {
+      this.addressList = JSON.parse(addressListData);
+    } else {
+      this.getFirebaseAddressList();
+    }
+  }
+
+  getFirebaseAddressList() {
+    this._globalSerive.getAddress().subscribe(
+      (res: any) => {
+        sessionStorage.setItem("addressList", JSON.stringify(res));
+        this.addressList = res
+      }
     )
   }
 
@@ -34,7 +46,8 @@ export class AddressComponent implements OnInit {
   }
   deleteAddress(index: number) {
     this.addressList.splice(index, 1);
-    this._globalSerive.deleteAddress('NuFgoUkCLaVgsyXYF2aPztjkRPc2', this.addressList)
+    this._globalSerive.deleteAddress(this.addressList);
+    sessionStorage.setItem("addressList", JSON.stringify(this.addressList));
   }
 
 }
