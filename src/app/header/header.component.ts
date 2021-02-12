@@ -1,6 +1,11 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { fromEvent } from "rxjs";
+import { SocialAuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+declare var $: any;
+
 
 @Component({
   selector: '[app-header]',
@@ -8,7 +13,8 @@ import { fromEvent } from "rxjs";
 })
 export class HeaderComponent implements OnInit {
   previousUrl: any;
-  constructor(private render: Renderer2, private router: Router) {
+  user: SocialUser;
+  constructor(private render: Renderer2, private router: Router, private authService: SocialAuthService) {
     this.router.events.subscribe(
       (event) => {
         if (event instanceof NavigationStart) {
@@ -39,6 +45,8 @@ export class HeaderComponent implements OnInit {
     if (window.innerWidth < 992) {
       this.toggleClick();
     }
+    this.onTapLogin();
+    this.checkUser();
   }
 
   toggleClick() {
@@ -70,6 +78,29 @@ export class HeaderComponent implements OnInit {
         ? header.classList.add('fixed')
         : header.classList.remove('fixed');
     };
+  }
+
+  onTapLogin() {
+    $.getScript('https://apis.google.com/js/platform.js')
+      .done(function (script: any, textStatus: any) {
+        console.log(textStatus);
+      })
+      .fail(function () {
+        console.log("Triggered ajaxError handler.");
+      })
+  }
+
+  checkUser() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
+  }
+  signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log("User signed out.");
+    });
   }
 
 }

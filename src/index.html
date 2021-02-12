@@ -1,19 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>CreationA11</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="mat-typography">
-  <app-root></app-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>CreationA11</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="1060855940399-2mb6i6muuoai4g50otdg0r9igi84662i.apps.googleusercontent.com"
+    />
+  </head>
+  <body class="mat-typography">
+    <app-root></app-root>
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+  </body>
+
+  <script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      var userDetail = {
+        id: profile.getId(),
+        name: profile.getName(),
+        img_url: profile.getImageUrl(),
+        email: profile.getEmail(),
+      };
+      sessionStorage.setItem("googleUser", JSON.stringify(userDetail));
+      // console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      // console.log("Name: " + profile.getName());
+      // console.log("Image URL: " + profile.getImageUrl());
+      // console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+  </script>
 </html>
