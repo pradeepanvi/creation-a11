@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from 'src/app/shared/global.service';
+import { AngularStripeService } from "@fireflysemantics/angular-stripe-service";
 
 @Component({
   selector: 'app-cart',
@@ -31,12 +32,28 @@ export class CartComponent implements OnInit {
   finalCartItems: any = [];
   subTotal: number = 0;
   loaderShow = true;
-  constructor(private http: HttpClient, private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private globalService: GlobalService) { }
+
+  stripe: any;
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private globalService: GlobalService,
+    private stripeService: AngularStripeService
+  ) { }
 
   ngOnInit(): void {
     this.getCartItem();
   }
 
+  ngAfterViewInit() {
+    this.stripeService.setPublishableKey('pk_test_51IJaeQGdR5gcqr0pN9aQhpoN15knmeRUkiVGP00YhXtP76HFmlGmVde8jsa0rt9xbKjRlWJeBpG4u20BgNm5cmCm00Lw0guskA').then(
+      stripe => {
+        this.stripe = stripe;
+      }
+    )
+  }
   getCartItem() {
     const cartPageData = sessionStorage.getItem("cartPage");
     if (cartPageData) {
@@ -109,7 +126,17 @@ export class CartComponent implements OnInit {
   }
   checkout() {
     this.globalService.checkout(this.finalCartItems, this.subTotal);
-    this.router.navigate(['address'], { relativeTo: this.route });
+    // this.router.navigate(['address'], { relativeTo: this.route });
+    this.http.get('https://secret-crag-27299.herokuapp.com/stripe.json').subscribe(
+      (res: any) => {
+        console.log(res);
+        this.stripe.redirectToCheckout({
+          sessionId: res.id
+        }).then(function (result: any) {
+          console.log(result);
+        });
+      }
+    )
   }
 
 }
