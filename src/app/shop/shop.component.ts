@@ -16,57 +16,33 @@ export class ShopComponent implements OnInit {
   constructor(private http: HttpClient, private globalService: GlobalService) { }
 
   ngOnInit(): void {
-    this.getJSONData();
+    this.getFirebaseJSONData();
   }
-
-  getCartData() {
-    const cartPageData = sessionStorage.getItem("cartPage");
-    if (cartPageData) {
-      this.cartItem = JSON.parse(cartPageData);
-    } else {
-      this.getFirebaseCartData();
-    }
-  }
-
   private getFirebaseCartData() {
-    this.globalService.getCartPage().subscribe(
-      (res: any) => {
-        sessionStorage.setItem("cartPage", JSON.stringify(res));
-        this.cartItem = res;
-      }
-    )
-  }
-
-  getJSONData() {
-    const shopPageData = sessionStorage.getItem("shopPage");
-    if (shopPageData) {
-      let res = JSON.parse(shopPageData);
-      this.doriItems = res.doriItems;
-      this.cardItems = res.cardItems;
-      this.holderItems = res.holderItems;
-      this.lanyardItems = res.lanyardItems;
-      this.getCartData();
-    } else {
-      this.getFirebaseJSONData();
+    if (this.globalService.user.id) {
+      this.globalService.getCartPage().subscribe(
+        (res: any) => {
+          if (res) {
+            this.cartItem = res;
+          }
+        }
+      )
     }
   }
-
   getFirebaseJSONData() {
     this.globalService.getShopPage().subscribe(
       (res: any) => {
         Object.assign(res, { addedToCart: false })
-        sessionStorage.setItem("shopPage", JSON.stringify(res));
         this.doriItems = res.doriItems;
         this.cardItems = res.cardItems;
         this.holderItems = res.holderItems;
         this.lanyardItems = res.lanyardItems;
-        this.getCartData();
+        this.getFirebaseCartData();
       });
   }
   addToCart(id: string) {
     this.cartItem.push(id);
     this.globalService.addToCart(this.cartItem);
-    sessionStorage.removeItem("cartPage");
   }
 
 }

@@ -55,37 +55,20 @@ export class CartComponent implements OnInit {
     )
   }
   getCartItem() {
-    const cartPageData = sessionStorage.getItem("cartPage");
-    if (cartPageData) {
-      this.cartItems = JSON.parse(cartPageData);
-      this.getShopItem();
-    } else {
-      this.getFirebaseCartItem();
-    }
+    this.getFirebaseCartItem();
   }
 
   private getFirebaseCartItem() {
     this.globalService.getCartPage().subscribe(
       (res) => {
-        sessionStorage.setItem("cartPage", JSON.stringify(res));
         this.cartItems = res;
         this.getFirebaseShopItem();
       }
     )
   }
-
-  private getShopItem() {
-    const shopPageData = sessionStorage.getItem("shopPage");
-    if (shopPageData) {
-      this.shopItems = JSON.parse(shopPageData);
-      this.setFinalCartItems();
-    }
-  }
-
   private getFirebaseShopItem() {
     this.globalService.getShopPage().subscribe(
       (res) => {
-        sessionStorage.setItem("shopPage", JSON.stringify(res));
         this.shopItems = res;
         this.setFinalCartItems();
       }
@@ -126,17 +109,17 @@ export class CartComponent implements OnInit {
   }
   checkout() {
     this.globalService.checkout(this.finalCartItems, this.subTotal);
-    // this.router.navigate(['address'], { relativeTo: this.route });
-    this.http.get('https://secret-crag-27299.herokuapp.com/stripe.json').subscribe(
-      (res: any) => {
-        console.log(res);
-        this.stripe.redirectToCheckout({
-          sessionId: res.id
-        }).then(function (result: any) {
-          console.log(result);
-        });
-      }
-    )
+    this.router.navigate(['address'], { relativeTo: this.route });
+    // this.http.get('https://secret-crag-27299.herokuapp.com/stripe.json').subscribe(
+    //   (res: any) => {
+    //     console.log(res);
+    //     this.stripe.redirectToCheckout({
+    //       sessionId: res.id
+    //     }).then(function (result: any) {
+    //       console.log(result);
+    //     });
+    //   }
+    // )
   }
 
 }

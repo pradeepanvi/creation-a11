@@ -12,10 +12,9 @@ import { FooterComponent } from './footer/footer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ShopComponent } from './shop/shop.component';
-import { CartSectionComponent } from './cart-section/cart-section.component';
-import { CartComponent } from './cart-section/cart/cart.component';
-import { CartModule } from './cart-section/cart.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -32,9 +31,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SlickCarouselModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '1060855940399-2mb6i6muuoai4g50otdg0r9igi84662i.apps.googleusercontent.com'
+            )
+          },
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

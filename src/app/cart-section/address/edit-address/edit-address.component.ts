@@ -12,6 +12,7 @@ export class EditAddressComponent implements OnInit {
   addressForm = this.fb.group({});
   editMode = false;
   id: any;
+  addressList = 0;
 
   constructor(private fb: FormBuilder, private _globalSerive: GlobalService, private route: ActivatedRoute) { }
 
@@ -29,7 +30,7 @@ export class EditAddressComponent implements OnInit {
     if (this.editMode) {
       this._globalSerive.updateAddress(this.id, this.addressForm.value);
     } else {
-      this._globalSerive.addAddress(this.addressForm.value);
+      this._globalSerive.addAddress(this.addressList, this.addressForm.value);
     }
   }
 
@@ -37,6 +38,7 @@ export class EditAddressComponent implements OnInit {
     if (this.editMode) {
       this._globalSerive.getAddress().subscribe(
         (res: any) => {
+          this.addressList = res.length;
           const editAddress = res[this.id];
           this.addressForm = this.fb.group({
             name: this.fb.control(editAddress.name),

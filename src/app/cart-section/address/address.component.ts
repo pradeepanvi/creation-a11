@@ -13,22 +13,12 @@ export class AddressComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private _globalSerive: GlobalService) { }
 
   ngOnInit(): void {
-    this.getAddressList();
-  }
-
-  getAddressList() {
-    const addressListData = sessionStorage.getItem("addressList");
-    if (addressListData) {
-      this.addressList = JSON.parse(addressListData);
-    } else {
-      this.getFirebaseAddressList();
-    }
+    this.getFirebaseAddressList();
   }
 
   getFirebaseAddressList() {
     this._globalSerive.getAddress().subscribe(
       (res: any) => {
-        sessionStorage.setItem("addressList", JSON.stringify(res));
         this.addressList = res
       }
     )
@@ -47,7 +37,6 @@ export class AddressComponent implements OnInit {
   deleteAddress(index: number) {
     this.addressList.splice(index, 1);
     this._globalSerive.deleteAddress(this.addressList);
-    sessionStorage.setItem("addressList", JSON.stringify(this.addressList));
   }
 
 }

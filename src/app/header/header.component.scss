@@ -73,6 +73,18 @@ header {
             color: $white-color;
           }
         }
+        button,
+        .user_detail {
+          color: $white-color;
+          svg {
+            margin-top: -2px;
+            margin-right: 5px;
+          }
+          &.active,
+          &:hover {
+            color: $white-color;
+          }
+        }
       }
     }
   }

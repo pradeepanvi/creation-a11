@@ -4,6 +4,7 @@ import { fromEvent } from "rxjs";
 import { SocialAuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { GlobalService } from '../shared/global.service';
 declare var $: any;
 
 
@@ -13,8 +14,8 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   previousUrl: any;
-  user: SocialUser;
-  constructor(private render: Renderer2, private router: Router, private authService: SocialAuthService) {
+  user: any;
+  constructor(private render: Renderer2, private router: Router, private authService: SocialAuthService, private globalService: GlobalService) {
     this.router.events.subscribe(
       (event) => {
         if (event instanceof NavigationStart) {
@@ -45,7 +46,6 @@ export class HeaderComponent implements OnInit {
     if (window.innerWidth < 992) {
       this.toggleClick();
     }
-    this.onTapLogin();
     this.checkUser();
   }
 
@@ -80,27 +80,23 @@ export class HeaderComponent implements OnInit {
     };
   }
 
-  onTapLogin() {
-    $.getScript('https://apis.google.com/js/platform.js')
-      .done(function (script: any, textStatus: any) {
-        console.log(textStatus);
-      })
-      .fail(function () {
-        console.log("Triggered ajaxError handler.");
-      })
-  }
-
   checkUser() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
+      this.globalService.checkUser(user);
       console.log(user);
     });
   }
-  signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log("User signed out.");
-    });
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => console.log(x));
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log(x));
+  }
+  signOut(): void {
+    this.authService.signOut();
   }
 
 }

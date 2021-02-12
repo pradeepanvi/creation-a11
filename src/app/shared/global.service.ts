@@ -5,11 +5,11 @@ import { Injectable } from "@angular/core";
     providedIn: "root"
 })
 export class GlobalService {
-    user = 'NuFgoUkCLaVgsyXYF2aPztjkRPc2';
+    user: any;
     firebaseData = 'https://identitycards-3b7a2.firebaseio.com/';
-    firebaseUser = 'https://identitycards-users.firebaseio.com/users/';
+    firebaseUser = 'https://identitycards-users.firebaseio.com/';
 
-    checkoutData: any[] = [];
+    checkoutData = {};
     constructor(private http: HttpClient) { }
 
     getHomePage() {
@@ -19,36 +19,59 @@ export class GlobalService {
     getShopPage() {
         return this.http.get(`${this.firebaseData}shopPage.json`)
     }
-
+    checkUser(user: any) {
+        this.user = user.id;
+        this.http.get(`${this.firebaseUser + user.id}.json`).subscribe(
+            (res: any) => {
+                this.checkoutData
+                if (res) {
+                    console.log(res);
+                } else {
+                    const userDetail = {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        provider: user.provider
+                    }
+                    this.http.put(`${this.firebaseUser + user.id}.json`, userDetail).subscribe(
+                        (res: any) => {
+                            console.log(res);
+                        }
+                    )
+                }
+            }
+        )
+    }
 
     getCartPage() {
-        return this.http.get(`${this.firebaseData}cartPage.json`)
+        return this.http.get(`${this.firebaseUser + this.user}/cartPage.json`)
     }
     addToCart(cartItems: any) {
-        return this.http.put(`${this.firebaseData}cartPage.json`, cartItems).subscribe(res => console.log(res));
+        return this.http.put(`${this.firebaseUser + this.user}/cartPage.json`, cartItems).subscribe(res => console.log(res));
     }
     checkout(finalCart: any, subTotal: any) {
-        this.checkoutData.push({ finalCartItems: finalCart }, { subTotal: subTotal });
+        this.checkoutData = { finalCartItems: finalCart, subTotal: subTotal };
         console.log(this.checkoutData);
+        // this.http.put(`${this.firebaseUser + this.user}/cartPage.json`, {}).subscribe(res => console.log(res));
+        // return this.http.put(`${this.firebaseUser + this.user}/history/${new Date()}.json`, this.checkoutData).subscribe(res => console.log(res));
     }
 
-    getUser() {
-        return this.http.get(`${this.firebaseUser}${this.user}.json`)
-    }
 
     getAddress() {
         return this.http.get(`${this.firebaseUser}${this.user}/addressItems.json`);
     }
 
-    addAddress(adderss: any) {
-        return this.http.post(`${this.firebaseUser}${this.user}/addressItems`, adderss).subscribe(res => console.log(res));
+    addAddress(addressList: any, adderss: any) {
+        return this.http.put(`${this.firebaseUser}${this.user}/addressItems/${addressList}.json`, adderss).subscribe(res => console.log(res));
     }
 
     updateAddress(id: any, adderss: any) {
-        return this.http.put(`${this.firebaseUser}${this.user}/addressItems/${id}`, adderss).subscribe(res => console.log(res));
+        return this.http.put(`${this.firebaseUser}${this.user}/addressItems/${id}.json`, adderss).subscribe(res => console.log(res));
     }
     deleteAddress(adderss: any) {
-        return this.http.put(`${this.firebaseUser}${this.user}/addressItems`, adderss).subscribe(res => console.log(res));
+        return this.http.put(`${this.firebaseUser}${this.user}/addressItems.json`, adderss).subscribe(res => console.log(res));
     }
 
 }
