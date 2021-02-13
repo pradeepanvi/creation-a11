@@ -59,12 +59,21 @@ export class CartComponent implements OnInit {
   }
 
   private getFirebaseCartItem() {
-    this.globalService.getCartPage().subscribe(
-      (res) => {
-        this.cartItems = res;
-        this.getFirebaseShopItem();
+    if (this.globalService.user) {
+      this.globalService.getCartPage().subscribe(
+        (res) => {
+          if (res) {
+            this.cartItems = res;
+          }
+        }
+      )
+    } else {
+      const cartPage = sessionStorage.getItem("cartPage");
+      if (cartPage) {
+        this.cartItems = JSON.parse(cartPage);
       }
-    )
+    }
+    this.getFirebaseShopItem();
   }
   private getFirebaseShopItem() {
     this.globalService.getShopPage().subscribe(
@@ -78,13 +87,15 @@ export class CartComponent implements OnInit {
   private setFinalCartItems() {
     Object.keys(this.shopItems).forEach((keys) => {
       this.shopItems[keys].forEach((obj: any) => {
-        this.cartItems.forEach((item: any) => {
-          if (obj.product_id == item) {
-            Object.assign(obj, { quantity: 1 })
-            this.finalCartItems.push(obj);
-            this.updateSubTotal(obj.price)
-          }
-        })
+        if (this.cartItems) {
+          this.cartItems.forEach((item: any) => {
+            if (obj.product_id == item) {
+              Object.assign(obj, { quantity: 1 })
+              this.finalCartItems.push(obj);
+              this.updateSubTotal(obj.price)
+            }
+          })
+        }
       })
     })
     this.loaderShow = false;

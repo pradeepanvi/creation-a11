@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from 'src/app/shared/global.service';
+declare var $: any;
 
 @Component({
   selector: 'app-address',
@@ -17,13 +18,29 @@ export class AddressComponent implements OnInit {
   }
 
   getFirebaseAddressList() {
-    this._globalSerive.getAddress().subscribe(
-      (res: any) => {
-        this.addressList = res
-      }
-    )
+    if (this._globalSerive.user) {
+      this._globalSerive.getAddress().subscribe(
+        (res: any) => {
+          this.addressList = res;
+          this._globalSerive.addressList = res;
+        }
+      )
+    } else {
+      // this.showModal();
+    }
   }
 
+  showModal() {
+    $('body').addClass('modal-open');
+    $('.modal').css('display', 'block');
+    if (!$('.modal-backdrop')) {
+      $('.modal').append('<div class="modal-backdrop fade show"></div>');
+    }
+  }
+
+  googleLogin() {
+    $('body').find('#google_login').click();
+  }
   addNewAddress() {
     this.router.navigate(['../new-address'], { relativeTo: this.route })
   }

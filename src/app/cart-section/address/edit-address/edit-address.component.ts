@@ -31,29 +31,26 @@ export class EditAddressComponent implements OnInit {
       this._globalSerive.updateAddress(this.id, this.addressForm.value);
     } else {
       this._globalSerive.addAddress(this.addressList, this.addressForm.value);
+      this.addressList++;
     }
   }
 
   private initForm() {
     if (this.editMode) {
-      this._globalSerive.getAddress().subscribe(
-        (res: any) => {
-          this.addressList = res.length;
-          const editAddress = res[this.id];
-          this.addressForm = this.fb.group({
-            name: this.fb.control(editAddress.name),
-            mobile: this.fb.control(editAddress.mobile),
-            pincode: this.fb.control(editAddress.pincode),
-            address1: this.fb.control(editAddress.address1),
-            address2: this.fb.control(editAddress.address2),
-            landmark: this.fb.control(editAddress.landmark),
-            city: this.fb.control(editAddress.city),
-            state: this.fb.control(editAddress.state),
-            addressType: this.fb.control(editAddress.addressType)
-          })
-        }
-      )
+      const editAddress = this._globalSerive.addressList[this.id]
+      this.addressForm = this.fb.group({
+        name: this.fb.control(editAddress.name),
+        mobile: this.fb.control(editAddress.mobile),
+        pincode: this.fb.control(editAddress.pincode),
+        address1: this.fb.control(editAddress.address1),
+        address2: this.fb.control(editAddress.address2),
+        landmark: this.fb.control(editAddress.landmark),
+        city: this.fb.control(editAddress.city),
+        state: this.fb.control(editAddress.state),
+        addressType: this.fb.control(editAddress.addressType)
+      })
     } else {
+      this.addressList = this._globalSerive.addressList.length;
       this.addressForm = this.fb.group({
         name: this.fb.control(""),
         mobile: this.fb.control(""),

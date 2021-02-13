@@ -18,15 +18,20 @@ export class ShopComponent implements OnInit {
   ngOnInit(): void {
     this.getFirebaseJSONData();
   }
-  private getFirebaseCartData() {
-    if (this.globalService.user.id) {
+  private getCartData() {
+    if (this.globalService.user) {
       this.globalService.getCartPage().subscribe(
         (res: any) => {
           if (res) {
-            this.cartItem = res;
+            this.cartItem = res
           }
         }
       )
+    } else {
+      const cartPage = sessionStorage.getItem("cartPage");
+      if (cartPage) {
+        this.cartItem = JSON.parse(cartPage);
+      }
     }
   }
   getFirebaseJSONData() {
@@ -37,12 +42,17 @@ export class ShopComponent implements OnInit {
         this.cardItems = res.cardItems;
         this.holderItems = res.holderItems;
         this.lanyardItems = res.lanyardItems;
-        this.getFirebaseCartData();
+        this.getCartData();
       });
   }
   addToCart(id: string) {
     this.cartItem.push(id);
-    this.globalService.addToCart(this.cartItem);
+    if (this.globalService.user) {
+      this.globalService.addToCart(this.cartItem);
+    } else {
+      sessionStorage.setItem("cartPage", JSON.stringify(this.cartItem));
+    }
   }
+
 
 }

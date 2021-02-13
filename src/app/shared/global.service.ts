@@ -9,6 +9,8 @@ export class GlobalService {
     firebaseData = 'https://identitycards-3b7a2.firebaseio.com/';
     firebaseUser = 'https://identitycards-users.firebaseio.com/';
 
+    addressList: any;
+
     checkoutData = {};
     constructor(private http: HttpClient) { }
 
