@@ -15,6 +15,7 @@ import { ShopComponent } from './shop/shop.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { UploadCardsComponent } from './upload-cards/upload-cards.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
     HomeComponent,
     FooterComponent,
     ShopComponent,
+    UploadCardsComponent
   ],
   imports: [
     BrowserModule,
