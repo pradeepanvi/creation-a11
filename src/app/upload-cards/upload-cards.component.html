@@ -2,7 +2,7 @@
   <div class="container">
     <div class="head_area">
       <h1>Cards</h1>
-      <p>Upload your card details</p>
+      <p>Upload your card details <a routerLink="/preview-cards">Preivew</a></p>
     </div>
     <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
       <section class="inside mb-4">
@@ -29,8 +29,8 @@
                 "
               />
               <label for="floatingInputValue">Your Company Logo</label>
-              <img [src]="logoUrl" *ngIf="logoUrl" />
-              <input type="hidden" formControlName="companyLogo" />
+              <img [src]="companyLogo.value" />
+              <input type="hidden" formControlName="companyLogo" #companyLogo />
             </div>
           </div>
           <div class="col-sm-6">

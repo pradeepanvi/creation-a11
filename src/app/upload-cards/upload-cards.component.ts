@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalService } from '../shared/global.service';
 
 @Component({
   selector: 'app-upload-cards',
@@ -14,10 +16,14 @@ export class UploadCardsComponent implements OnInit {
   logoFileToUpload: any;
   logoUrl: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
   initCard(empPhoto = '', empName = '', empDesignation = "", empCode = "", empDOB = "", empMobile = "", empEMobile = "", empBG = "") {
     return this.fb.group({
@@ -39,15 +45,33 @@ export class UploadCardsComponent implements OnInit {
   }
 
   private initForm() {
-    this.cardForm = this.fb.group({
-      companyName: this.fb.control(''),
-      companyLogo: this.fb.control(''),
-      companyAddress: this.fb.control(''),
-      employeeDetails: this.cardItemsArray
-    })
+    const isPreivewData = sessionStorage.getItem("uploadCardsData");
+    if (isPreivewData) {
+      const cardData = JSON.parse(isPreivewData);
+      if (cardData.employeeDetails.length > 0) {
+        cardData.employeeDetails.forEach((card: any) => {
+          this.cardItemsArray.push(this.initCard(card.empPhoto, card.empName, card.empDesignation, card.empCode, card.empDOB, card.empMobile, card.empEMobile, card.empBG));
+        });
+      }
+      this.cardForm = this.fb.group({
+        companyName: this.fb.control(cardData.companyName),
+        companyLogo: this.fb.control(cardData.companyLogo),
+        companyAddress: this.fb.control(cardData.companyAddress),
+        employeeDetails: this.cardItemsArray
+      })
+    } else {
+      this.cardForm = this.fb.group({
+        companyName: this.fb.control(''),
+        companyLogo: this.fb.control(''),
+        companyAddress: this.fb.control(''),
+        employeeDetails: this.cardItemsArray
+      })
+    }
+
   }
   onSubmit() {
-    console.log(this.cardForm.value)
+    sessionStorage.setItem("uploadCardsData", JSON.stringify(this.cardForm.value));
+    this.router.navigate(["/preview-cards"], { relativeTo: this.route })
   }
 
   handleLogoFileInput(file: FileList, formControl: string) {
@@ -71,10 +95,6 @@ export class UploadCardsComponent implements OnInit {
     render.onload = (event: any) => {
       const photoUrl = event.target.result;
       console.log(this.cardItemsArray.controls[arrayPosition].controls[formControl].setValue(photoUrl));
-      // console.log(photoUrl);
-      // console.log(formControl);
-      // console.log(arrayPosition);
-      // console.log(this.cardItemsArray);
     }
     render.readAsDataURL(photoFileToUpload);
     console.log(render);

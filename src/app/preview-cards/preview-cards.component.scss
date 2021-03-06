@@ -1,0 +1,24 @@
+section {
+  position: relative;
+  padding: 20px;
+  border: 1px solid #cccc;
+  box-shadow: 0px 0px 2px #cccc;
+  &.inside {
+    box-shadow: inset 0px 0px 6px #999;
+  }
+  &.card {
+    padding-top: 60px;
+  }
+  .close_btn {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    background: transparent;
+    border: none;
+    svg {
+      width: 24px;
+      height: 24px;
+      color: red;
+    }
+  }
+}

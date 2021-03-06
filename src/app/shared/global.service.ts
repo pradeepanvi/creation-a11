@@ -12,6 +12,8 @@ export class GlobalService {
     addressList: any;
 
     checkoutData = {};
+
+    uploadCardsData: any = {};
     constructor(private http: HttpClient) { }
 
     getHomePage() {
