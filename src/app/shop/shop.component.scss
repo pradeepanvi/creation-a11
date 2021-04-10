@@ -1,3 +1,19 @@
 #shops {
   @include com;
+  .card {
+    padding: 15px 7.5px 0;
+    table {
+      tr {
+        td,
+        th {
+          padding: 0 7.5px;
+        }
+        td {
+          &:first-child {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
 }

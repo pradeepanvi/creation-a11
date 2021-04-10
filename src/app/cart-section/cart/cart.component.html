@@ -1,48 +1,34 @@
-<div class="row" *ngIf="finalCartItems.length">
+<div class="row">
   <div class="col-lg-9">
     <section>
       <h1>{{ title }}</h1>
       <table class="table table-hover">
         <thead>
           <tr>
-            <td colspan="3">Price</td>
+            <td></td>
+            <td>Type</td>
+            <td>Quantity</td>
+            <td>Price</td>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cart of finalCartItems; let i = index">
-            <td><img [src]="cart.imgURL" /></td>
-            <td>
-              <p>{{ cart.des }}</p>
-              <ul>
-                <li>
-                  <div class="form-floating">
-                    <select
-                      class="form-select"
-                      id="floatingSelect{{ cart.product_id }}"
-                      aria-label="Select product quantity"
-                      [(ngModel)]="cart.quantity"
-                      (ngModelChange)="updatePrice()"
-                    >
-                      <option
-                        *ngFor="let quan of quantity"
-                        [value]="quan.value"
-                      >
-                        {{ quan.value }}
-                      </option>
-                    </select>
-                    <label for="floatingSelect{{ cart.product_id }}"
-                      >Quantity</label
-                    >
-                  </div>
-                </li>
-                <li>
-                  <button class="txt_btn" (click)="removeCart(i)">
-                    Delete
-                  </button>
-                </li>
-              </ul>
-            </td>
-            <td>{{ cart.price * cart.quantity }}</td>
+          <tr>
+            <td>Card</td>
+            <td>{{ cartItems.cardType }}</td>
+            <td>{{ cartItems.cardQty }}</td>
+            <td>{{ cartItems.cardAmount * cartItems.cardQty }}</td>
+          </tr>
+          <tr>
+            <td>Dori</td>
+            <td>{{ cartItems.doriType }}</td>
+            <td>{{ cartItems.doriQty }}</td>
+            <td>{{ cartItems.doriAmount * cartItems.doriQty }}</td>
+          </tr>
+          <tr>
+            <td>Holder</td>
+            <td>{{ cartItems.holderType }}</td>
+            <td>{{ cartItems.holderQty }}</td>
+            <td>{{ cartItems.holderAmount * cartItems.holderQty }}</td>
           </tr>
         </tbody>
         <tfoot>

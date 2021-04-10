@@ -94,7 +94,7 @@ export class UploadCardsComponent implements OnInit {
     const render = new FileReader();
     render.onload = (event: any) => {
       const photoUrl = event.target.result;
-      console.log(this.cardItemsArray.controls[arrayPosition].controls[formControl].setValue(photoUrl));
+      // console.log(this.cardItemsArray.controls[arrayPosition].controls[formControl].setValue(photoUrl));
     }
     render.readAsDataURL(photoFileToUpload);
     console.log(render);

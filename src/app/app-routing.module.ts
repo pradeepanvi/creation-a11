@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { PreviewCardsComponent } from './preview-cards/preview-cards.component';
 import { ShopComponent } from './shop/shop.component';
 import { UploadCardsComponent } from './upload-cards/upload-cards.component';
+import { UploadDesignComponent } from './upload-design/upload-design.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/shop', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'upload-cards', component: UploadCardsComponent },
   { path: 'preview-cards', component: PreviewCardsComponent },
+  { path: 'upload-design', component: UploadDesignComponent },
   {
     path: 'cart', loadChildren: () => import('./cart-section/cart.module').then((m) => m.CartModule)
   }

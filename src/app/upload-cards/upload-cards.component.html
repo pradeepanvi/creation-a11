@@ -1,8 +1,9 @@
 <div id="shops">
   <div class="container">
+    <a routerLink="/upload-design" class="link-primary"> Back to Shop Page </a>
     <div class="head_area">
       <h1>Cards</h1>
-      <p>Upload your card details <a routerLink="/preview-cards">Preivew</a></p>
+      <p>Upload your card details</p>
     </div>
     <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
       <section class="inside mb-4">
@@ -111,7 +112,7 @@
             </div>
             <div class="form-floating mb-3">
               <input
-                type="text"
+                type="date"
                 class="form-control"
                 id="empDOB"
                 placeholder="Date of Birth"
@@ -152,7 +153,22 @@
           </section>
         </div>
         <div class="col-sm-4 mb-4">
-          <button type="button" (click)="addCard()">Add Card</button>
+          <section class="card single_btn">
+            <button type="button" (click)="addCard()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-plus-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+                />
+              </svg>
+            </button>
+          </section>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>

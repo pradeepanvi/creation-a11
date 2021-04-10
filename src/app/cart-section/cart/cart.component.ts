@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
 
   finalCartItems: any = [];
   subTotal: number = 0;
-  loaderShow = true;
+  loaderShow = false;
 
   stripe: any;
   constructor(
@@ -54,83 +54,23 @@ export class CartComponent implements OnInit {
       }
     )
   }
+
   getCartItem() {
-    this.getFirebaseCartItem();
-  }
-
-  private getFirebaseCartItem() {
-    if (this.globalService.user) {
-      this.globalService.getCartPage().subscribe(
-        (res) => {
-          if (res) {
-            this.cartItems = res;
-          }
-        }
-      )
-    } else {
-      const cartPage = sessionStorage.getItem("cartPage");
-      if (cartPage) {
-        this.cartItems = JSON.parse(cartPage);
-      }
+    const cartPage = sessionStorage.getItem("cartPage");
+    if (cartPage) {
+      let cartItem = JSON.parse(cartPage);
+      this.cartItems = cartItem;
+      console.log(this.cartItems);
+      this.subTotal = (this.cartItems.cardAmount * this.cartItems.cardQty) + (this.cartItems.doriAmount * this.cartItems.doriQty) + (this.cartItems.holderAmount * this.cartItems.holderQty)
     }
-    this.getFirebaseShopItem();
-  }
-  private getFirebaseShopItem() {
-    this.globalService.getShopPage().subscribe(
-      (res) => {
-        this.shopItems = res;
-        this.setFinalCartItems();
-      }
-    )
   }
 
-  private setFinalCartItems() {
-    Object.keys(this.shopItems).forEach((keys) => {
-      this.shopItems[keys].forEach((obj: any) => {
-        if (this.cartItems) {
-          this.cartItems.forEach((item: any) => {
-            if (obj.product_id == item) {
-              Object.assign(obj, { quantity: 1 })
-              this.finalCartItems.push(obj);
-              this.updateSubTotal(obj.price)
-            }
-          })
-        }
-      })
-    })
-    this.loaderShow = false;
-  }
-  private updateSubTotal(price: number) {
-    this.subTotal += price
-  }
-
-  updatePrice() {
-    this.subTotal = 0;
-    this.finalCartItems.forEach((item: any) => {
-      this.updateSubTotal(item.price * item.quantity);
-    })
-  }
-
-  removeCart(index: number) {
-    this.finalCartItems.splice(index, 1);
-    this.updatePrice();
-  }
   continueShop() {
     this.router.navigate(['../shop'], { relativeTo: this.route });
   }
   checkout() {
     this.globalService.checkout(this.finalCartItems, this.subTotal);
     this.router.navigate(['address'], { relativeTo: this.route });
-    // this.http.get('https://secret-crag-27299.herokuapp.com/stripe.json').subscribe(
-    //   (res: any) => {
-    //     console.log(res);
-    //     this.stripe.redirectToCheckout({
-    //       sessionId: res.id
-    //     }).then(function (result: any) {
-    //       console.log(result);
-    //     });
-    //   }
-    // )
   }
 
 }

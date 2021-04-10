@@ -1,0 +1,25 @@
+<div id="shops">
+  <div class="container">
+    <div class="head_area">
+      <h2>Shops</h2>
+      <p>Checkout your cards, dori and holder</p>
+    </div>
+    <div class="d-flex justify-content-center pb-3 mb-3 border-bottom">
+      <input type="file" (change)="upload($event.target.files)" />
+      <a routerLink="/shop" class="btn btn-success btn-lg"> Upload Design </a>
+    </div>
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the
+      1500s, when an unknown printer took a galley of type and scrambled it to
+      make a type specimen book. It has survived not only five centuries, but
+      also the leap into electronic typesetting, remaining essentially
+      unchanged.
+    </p>
+    <div class="d-flex justify-content-center pt-3 mt-3 border-top">
+      <a routerLink="/upload-cards" class="btn btn-primary btn-lg">
+        Create Design
+      </a>
+    </div>
+  </div>
+</div>

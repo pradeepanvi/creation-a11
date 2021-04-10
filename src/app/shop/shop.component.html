@@ -1,114 +1,182 @@
 <div id="shops">
   <div class="container">
-    <div class="head_area">
-      <h2>Shops</h2>
-      <p>
-        Checkout your cards, dori and holder
-        <a routerLink="/cart">cart {{ cartItem?.length }}</a>
-        <a routerLink="/upload-cards">upload cards</a>
-      </p>
-    </div>
-    <h3>Card</h3>
-    <div class="row">
-      <div class="col-md-4" *ngFor="let card of cardItems">
-        <div class="card mb-4 shadow-sm">
-          <img [src]="card.imgURL" />
-          <div class="card-body">
-            <p class="card-title">{{ card.name }}</p>
-            <p class="card-text">{{ card.des }}</p>
-            <p>{{ card.product_id }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button
-                  type="button"
-                  (click)="addToCart(card.product_id)"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  Add to Cart
-                </button>
-              </div>
-              <small class="text-muted">{{ card.price }}</small>
-            </div>
+    <form [formGroup]="restItemsForm" (ngSubmit)="onSubmit()">
+      <div class="head_area">
+        <h2>Shops</h2>
+        <p>Checkout your cards, dori and holder</p>
+        <div class="alert alert-success d-inline-block" role="alert">
+          A simple success alert—check it out!
+        </div>
+        <p>Now, share your quantity and find the best recommended qoute</p>
+      </div>
+      <div class="d-flex justify-content-between pb-3 mb-3 border-bottom"></div>
+      <div class="row">
+        <div class="col-xl-4">
+          <div class="card mb-4 shadow-sm">
+            <table class="table">
+              <tr>
+                <th>PVC Card</th>
+                <th>Qty</th>
+                <th>Rate</th>
+              </tr>
+              <tr>
+                <td>
+                  <select
+                    class="form-select"
+                    aria-label="Floating label select example"
+                    formControlName="cardType"
+                  >
+                    <option selected>Select</option>
+                    <option value="ID Cards">ID Cards</option>
+                    <option value="Membership Cards">Membership Cards</option>
+                    <option value="ATM Cards">ATM Cards</option>
+                    <option value="ATM/Emboss Cards">ATM/Emboss Cards</option>
+                  </select>
+                </td>
+                <td>
+                  <div class="input-group mb-3">
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      (click)="minusQty()"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label="Example text with two button addons"
+                      formControlName="cardQty"
+                      [(ngModel)]="cardQtyValue"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      (click)="plusQty()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+                <td>{{ cardQtyValue * 26 }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card mb-4 shadow-sm">
+            <table class="table">
+              <tr>
+                <th>Dori/Multicolor Lanyards</th>
+                <th>Qty</th>
+                <th>Rate</th>
+              </tr>
+              <tr>
+                <td>
+                  <select
+                    class="form-select"
+                    aria-label="Floating label select example"
+                    formControlName="doriType"
+                  >
+                    <option selected>Select</option>
+                    <option value="Normal Dori">Normal Dori</option>
+                    <option value="Official Dori">Official Dori</option>
+                    <option value="16mm Single Color">16mm Single Color</option>
+                    <option value="20mm Single Color">20mm Single Color</option>
+                    <option value="16mm Mutlicolor">16mm Mutlicolor</option>
+                    <option value="20mm Mutlicolor">20mm Mutlicolor</option>
+                  </select>
+                </td>
+                <td>
+                  <div class="input-group mb-3">
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      (click)="minusDoriQty()"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label="Example text with two button addons"
+                      formControlName="doriQty"
+                      [(ngModel)]="doriQtyValue"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      (click)="plusDoriQty()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+                <td>{{ doriQtyValue * 26 }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card mb-4 shadow-sm">
+            <table class="table">
+              <tr>
+                <th>Holder</th>
+                <th>Qty</th>
+                <th>Rate</th>
+              </tr>
+              <tr>
+                <td>
+                  <select
+                    class="form-select"
+                    aria-label="Floating label select example"
+                    formControlName="holderType"
+                  >
+                    <option selected>Select</option>
+                    <option value="Holders 1">Holders 1</option>
+                    <option value="Holders 2">Holders 2</option>
+                    <option value="Holders 3">Holders 3</option>
+                    <option value="Holders 4">Holders 4</option>
+                  </select>
+                </td>
+                <td>
+                  <div class="input-group mb-3">
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      (click)="minusHolderQty()"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      aria-label="Example text with two button addons"
+                      formControlName="holderQty"
+                      [(ngModel)]="holderQtyValue"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      (click)="plusHolderQty()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+                <td>{{ holderQtyValue * 26 }}</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
-    </div>
-
-    <h3>Dori</h3>
-    <div class="row">
-      <div class="col-md-4" *ngFor="let dori of doriItems">
-        <div class="card mb-4 shadow-sm">
-          <img [src]="dori.imgURL" />
-          <div class="card-body">
-            <p class="card-title">{{ dori.name }}</p>
-            <p class="card-text">{{ dori.des }}</p>
-            <p>{{ dori.product_id }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button
-                  type="button"
-                  (click)="addToCart(dori.product_id)"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  Add to Cart
-                </button>
-                {{ dori.addedToCart }} hello
-              </div>
-              <small class="text-muted">{{ dori.price }}</small>
-            </div>
-          </div>
-        </div>
+      <div class="d-flex justify-content-between pt-3 mt-3 border-top"></div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Continue</button>
       </div>
-    </div>
-    <h3>Holders</h3>
-    <div class="row">
-      <div class="col-md-4" *ngFor="let holder of holderItems">
-        <div class="card mb-4 shadow-sm">
-          <img [src]="holder.imgURL" />
-          <div class="card-body">
-            <p class="card-title">{{ holder.name }}</p>
-            <p class="card-text">{{ holder.des }}</p>
-            <p>{{ holder.product_id }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button
-                  type="button"
-                  (click)="addToCart(holder.product_id)"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  Add to Cart
-                </button>
-              </div>
-              <small class="text-muted">{{ holder.price }}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <h3>Lanyard</h3>
-    <div class="row">
-      <div class="col-md-4" *ngFor="let lanyard of lanyardItems">
-        <div class="card mb-4 shadow-sm">
-          <img [src]="lanyard.imgURL" />
-          <div class="card-body">
-            <p class="card-title">{{ lanyard.name }}</p>
-            <p class="card-text">{{ lanyard.des }}</p>
-            <p>{{ lanyard.product_id }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button
-                  type="button"
-                  (click)="addToCart(lanyard.product_id)"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  Add to Cart
-                </button>
-              </div>
-              <small class="text-muted">{{ lanyard.price }}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
