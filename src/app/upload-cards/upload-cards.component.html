@@ -25,9 +25,7 @@
                 class="form-control"
                 id="floatingInputValue"
                 placeholder="Your Company Logo"
-                (change)="
-                  handleLogoFileInput($event.target?.files, 'companyLogo')
-                "
+                (change)="handleLogoFileInput($event, 'companyLogo')"
               />
               <label for="floatingInputValue">Your Company Logo</label>
               <img [src]="companyLogo.value" />
@@ -72,9 +70,7 @@
                 class="form-control"
                 id="empPhoto"
                 placeholder="Photo"
-                (change)="
-                  handleEmpPhotoInput($event.target?.files, 'empPhoto', i)
-                "
+                (change)="handleEmpPhotoInput($event, 'empPhoto', i)"
               />
               <label for="empPhoto">Photo</label>
               <img [src]="empPhoto.value" />

@@ -18,6 +18,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { UploadCardsComponent } from './upload-cards/upload-cards.component';
 import { PreviewCardsComponent } from './preview-cards/preview-cards.component';
 import { UploadDesignComponent } from './upload-design/upload-design.component';
+import { MatFileUploadModule } from "angular-material-fileupload";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UploadDesignComponent } from './upload-design/upload-design.component';
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatFileUploadModule
   ],
   providers: [
     {

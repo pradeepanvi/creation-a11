@@ -74,8 +74,9 @@ export class UploadCardsComponent implements OnInit {
     this.router.navigate(["/preview-cards"], { relativeTo: this.route })
   }
 
-  handleLogoFileInput(file: FileList, formControl: string) {
-    this.logoFileToUpload = file.item(0);
+  handleLogoFileInput(file: any, formControl: string) {
+    console.log(file);
+    this.logoFileToUpload = file.target.files ? file.target.files[0] : '';
 
     //Show image preview
     let render = new FileReader();
@@ -87,17 +88,16 @@ export class UploadCardsComponent implements OnInit {
     console.log(render);
   }
 
-  handleEmpPhotoInput(file: FileList, formControl: string, arrayPosition: number) {
-    const photoFileToUpload: any = file.item(0);
+  handleEmpPhotoInput(file: any, formControl: string, arrayPosition: number) {
+    const photoFileToUpload: any = file.target.files ? file.target.files[0] : '';
 
     //Show image preview
     const render = new FileReader();
     render.onload = (event: any) => {
       const photoUrl = event.target.result;
-      // console.log(this.cardItemsArray.controls[arrayPosition].controls[formControl].setValue(photoUrl));
+      this.cardItemsArray.controls[arrayPosition].get(formControl)?.setValue(photoUrl);
     }
     render.readAsDataURL(photoFileToUpload);
-    console.log(render);
   }
 
 }
