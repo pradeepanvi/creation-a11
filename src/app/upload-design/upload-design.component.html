@@ -5,22 +5,25 @@
       <p>Checkout your cards, dori and holder</p>
     </div>
     <div class="d-flex justify-content-center pb-3 mb-3 border-bottom">
-      <input type="file" [fileUploadInputFor]="fileUploadQueue" />
-    </div>
-    <div class="d-flex justify-content-center pb-3 mb-3 border-bottom">
-      <mat-file-upload-queue
-        #fileUploadQueue
-        [fileAlias]="'file'"
-        [httpUrl]="'http://localhost:4200/assets'"
+      <button
+        type="button"
+        (click)="file.click()"
+        class="btn btn-success btn-lg"
       >
-        <mat-file-upload
-          [file]="file"
-          [id]="i"
-          *ngFor="let file of fileUploadQueue.files; let i = index"
-        ></mat-file-upload>
-      </mat-file-upload-queue>
+        Upload Design
+      </button>
+      <input type="file" (change)="upload($event)" #file class="d-none" />
     </div>
-    <a routerLink="/shop" class="btn btn-success btn-lg"> Upload Design </a>
+    <div class="progress mb-3" *ngIf="percentDone > 0">
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated"
+        role="progressbar"
+        [attr.aria.valuenow]="percentDone"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width.%]="percentDone"
+      ></div>
+    </div>
     <p>
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text ever since the

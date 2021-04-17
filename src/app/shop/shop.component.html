@@ -4,8 +4,12 @@
       <div class="head_area">
         <h2>Shops</h2>
         <p>Checkout your cards, dori and holder</p>
-        <div class="alert alert-success d-inline-block" role="alert">
-          A simple success alert—check it out!
+        <div
+          class="alert alert-success d-inline-block"
+          role="alert"
+          *ngIf="uploadMessage"
+        >
+          Your document uploaded successfully
         </div>
         <p>Now, share your quantity and find the best recommended qoute</p>
       </div>

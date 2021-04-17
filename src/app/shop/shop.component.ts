@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from '../shared/global.service';
+import { timer } from "rxjs";
 
 @Component({
   selector: 'app-shop',
@@ -13,10 +14,15 @@ export class ShopComponent implements OnInit {
   doriQtyValue = 1;
   holderQtyValue = 1;
   restItemsForm = this.fb.group({});
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
+  uploadMessage = false;
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.uploadMessage = this.globalService.uploadMessage;
+
+    const source = timer(2000);
+    source.subscribe(() => this.uploadMessage = false)
   }
 
   private initForm() {

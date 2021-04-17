@@ -14,6 +14,7 @@ export class GlobalService {
     checkoutData = {};
 
     uploadCardsData: any = {};
+    uploadMessage = false;
     constructor(private http: HttpClient) { }
 
     getHomePage() {
