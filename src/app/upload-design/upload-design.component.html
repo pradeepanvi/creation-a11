@@ -4,11 +4,19 @@
       <h2>Shops</h2>
       <p>Checkout your cards, dori and holder</p>
     </div>
+    <div
+      class="alert alert-warning col-lg-4 offset-lg-4 text-center"
+      role="alert"
+      *ngIf="!isUserLoggedIn"
+    >
+      Before start journey you must have logged In
+    </div>
     <div class="d-flex justify-content-center pb-3 mb-3 border-bottom">
       <button
         type="button"
         (click)="file.click()"
         class="btn btn-success btn-lg"
+        [disabled]="!isUserLoggedIn"
       >
         Upload Design
       </button>
@@ -33,9 +41,13 @@
       unchanged.
     </p>
     <div class="d-flex justify-content-center pt-3 mt-3 border-top">
-      <a routerLink="/upload-cards" class="btn btn-primary btn-lg">
+      <button
+        class="btn btn-primary btn-lg"
+        (click)="createDesign()"
+        [disabled]="!isUserLoggedIn"
+      >
         Create Design
-      </a>
+      </button>
     </div>
   </div>
 </div>

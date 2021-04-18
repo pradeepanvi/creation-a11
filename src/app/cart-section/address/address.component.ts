@@ -16,9 +16,10 @@ export class AddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFirebaseAddressList();
-  }
-  ngAfterViewInit() {
-    this.getFirebaseAddressList();
+    this._globalSerive.userObservable.subscribe(res => {
+      this.getFirebaseAddressList();
+    })
+
   }
 
   getFirebaseAddressList() {

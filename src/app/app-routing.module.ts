@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CancelComponent } from './cancel/cancel.component';
 import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
 import { PreviewCardsComponent } from './preview-cards/preview-cards.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     path: 'cart', loadChildren: () => import('./cart-section/cart.module').then((m) => m.CartModule)
   },
   { path: 'success', component: SuccessComponent },
+  { path: 'cancel', component: CancelComponent },
   { path: '404', component: ErrorComponent },
   { path: '**', redirectTo: '/404' }
 ];

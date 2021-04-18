@@ -12,10 +12,12 @@ import { GlobalService } from '../shared/global.service';
 export class UploadDesignComponent implements OnInit {
   percentDone: number = 0;
   uploadSuccess: boolean = false;
+  isUserLoggedIn = false;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.globalService.userObservable.subscribe((x: any) => this.isUserLoggedIn = x ? true : false);
   }
 
   upload(file: any) {
@@ -45,5 +47,7 @@ export class UploadDesignComponent implements OnInit {
       });
   }
 
-
+  createDesign() {
+    this.router.navigateByUrl("/upload-cards");
+  }
 }

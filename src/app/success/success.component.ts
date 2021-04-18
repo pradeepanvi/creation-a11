@@ -13,10 +13,12 @@ export class SuccessComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private _globalService: GlobalService) { }
 
   ngOnInit(): void {
-    if (this._globalService.user) {
-      this._globalService.checkout();
-    }
+    const user = sessionStorage.getItem("user");
     const source = timer(3000);
+    if (user) {
+      this._globalService.checkout(user);
+      sessionStorage.removeItem("user");
+    }
     source.subscribe(() => {
       this.router.navigate(['/'], { relativeTo: this.route });
     })
