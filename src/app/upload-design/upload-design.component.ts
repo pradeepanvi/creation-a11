@@ -17,6 +17,7 @@ export class UploadDesignComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.isUserLoggedIn = this.globalService.user ? true : false;
     this.globalService.userObservable.subscribe((x: any) => this.isUserLoggedIn = x ? true : false);
   }
 

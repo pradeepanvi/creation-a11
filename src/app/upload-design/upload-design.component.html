@@ -1,53 +1,200 @@
 <div id="shops">
   <div class="container">
-    <div class="head_area">
-      <h2>Shops</h2>
-      <p>Checkout your cards, dori and holder</p>
-    </div>
-    <div
-      class="alert alert-warning col-lg-4 offset-lg-4 text-center"
-      role="alert"
-      *ngIf="!isUserLoggedIn"
-    >
-      Before start journey you must have logged In
-    </div>
-    <div class="d-flex justify-content-center pb-3 mb-3 border-bottom">
-      <button
-        type="button"
-        (click)="file.click()"
-        class="btn btn-success btn-lg"
-        [disabled]="!isUserLoggedIn"
-      >
-        Upload Design
-      </button>
-      <input type="file" (change)="upload($event)" #file class="d-none" />
-    </div>
-    <div class="progress mb-3" *ngIf="percentDone > 0">
-      <div
-        class="progress-bar progress-bar-striped progress-bar-animated"
-        role="progressbar"
-        [attr.aria.valuenow]="percentDone"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        [style.width.%]="percentDone"
-      ></div>
-    </div>
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book. It has survived not only five centuries, but
-      also the leap into electronic typesetting, remaining essentially
-      unchanged.
-    </p>
-    <div class="d-flex justify-content-center pt-3 mt-3 border-top">
-      <button
-        class="btn btn-primary btn-lg"
-        (click)="createDesign()"
-        [disabled]="!isUserLoggedIn"
-      >
-        Create Design
-      </button>
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="head_area">
+          <h2>
+            Upload or Enter Details here, Our Expert will create a new Design
+            for your Reputed Firm
+          </h2>
+          <p>However you can mention any format from our website in notes</p>
+        </div>
+        <div
+          class="alert alert-warning col-lg-4 offset-lg-4 text-center"
+          role="alert"
+          *ngIf="!isUserLoggedIn"
+        >
+          Before start journey you must have logged In
+        </div>
+        <div class="d-flex justify-content-center pb-3 mb-3 border-bottom">
+          <button
+            type="button"
+            (click)="file.click()"
+            class="btn btn-success btn-lg"
+            [disabled]="!isUserLoggedIn"
+          >
+            Upload Design
+          </button>
+          <input type="file" (change)="upload($event)" #file class="d-none" />
+        </div>
+        <div class="progress mb-3" *ngIf="percentDone > 0">
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            [attr.aria.valuenow]="percentDone"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [style.width.%]="percentDone"
+          ></div>
+        </div>
+        <h2>Kindly upload details as required like</h2>
+        <ul>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            Employee Name
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            Designation
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            DOB
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            Employee Code
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            Emergency Contact No. with its respective photos in Excel Sheet.
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            Share Organisation Logo open file / jpeg / png file and address.
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            However you can share your previous card design also.
+          </li>
+          <li>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-exclamation-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+              />
+            </svg>
+            <i>All files & details should be in Rar, Zip compressed file.</i>
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-center pt-3 mt-3 border-top">
+          <button
+            class="btn btn-primary btn-lg"
+            (click)="createDesign()"
+            [disabled]="!isUserLoggedIn"
+          >
+            Enter Details
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

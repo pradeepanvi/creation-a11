@@ -12,3 +12,42 @@ section {
 .example-container button {
   width: 100%;
 }
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  min-height: 100vh;
+  padding-left: 15px;
+  padding-right: 15px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fd7801+0,fb3601+100 */
+  background: #fd7801; /* Old browsers */
+  background: -moz-radial-gradient(
+    center,
+    ellipse cover,
+    #fd7801 0%,
+    #fb3601 100%
+  ); /* FF3.6-15 */
+  background: -webkit-radial-gradient(
+    center,
+    ellipse cover,
+    #fd7801 0%,
+    #fb3601 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(
+    ellipse at center,
+    #fd7801 0%,
+    #fb3601 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  color: #ffffff;
+  text-align: center;
+  .table_t {
+    height: 100vh;
+    text-align: center;
+    img {
+      width: 200px;
+    }
+  }
+}

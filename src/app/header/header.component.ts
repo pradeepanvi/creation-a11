@@ -15,6 +15,7 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   previousUrl: any;
   user: any;
+  showDropDownClass = false;
   constructor(private render: Renderer2, private router: Router, private authService: SocialAuthService, private globalService: GlobalService) {
     this.router.events.subscribe(
       (event) => {
@@ -46,7 +47,13 @@ export class HeaderComponent implements OnInit {
     if (window.innerWidth < 992) {
       this.toggleClick();
     }
-    this.checkUser();
+    const userData = sessionStorage.getItem("userData");
+    if (userData) {
+      this.user = JSON.parse(userData);
+      this.globalService.checkUser(this.user);
+    } else {
+      this.checkUser();
+    }
   }
 
   toggleClick() {
@@ -82,9 +89,9 @@ export class HeaderComponent implements OnInit {
 
   checkUser() {
     this.authService.authState.subscribe((user) => {
+      sessionStorage.setItem("userData", JSON.stringify(user));
       this.user = user;
       this.globalService.checkUser(user);
-      console.log(user);
     });
   }
 
@@ -96,7 +103,16 @@ export class HeaderComponent implements OnInit {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log(x));
   }
   signOut(): void {
+    this.showDropDownClass = false;
     this.authService.signOut();
+  }
+
+  showDropdown() {
+    if (this.showDropDownClass) {
+      this.showDropDownClass = false;
+    } else {
+      this.showDropDownClass = true;
+    }
   }
 
 }

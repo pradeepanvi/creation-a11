@@ -1,5 +1,6 @@
 #shops {
   @include com;
+  min-height: calc(100vh - 148px);
   .card {
     padding: 15px 7.5px 0;
     table {

@@ -13,7 +13,7 @@ header {
     background: $black-color;
   }
   &.fixed-inner {
-    position: static;
+    position: relative;
   }
 }
 
@@ -83,6 +83,11 @@ header {
           &.active,
           &:hover {
             color: $white-color;
+          }
+        }
+        .dropdown-menu {
+          button {
+            color: $black-color;
           }
         }
       }

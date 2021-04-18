@@ -62,7 +62,7 @@ import { CancelComponent } from './cancel/cancel.component';
           },
         ]
       } as SocialAuthServiceConfig,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

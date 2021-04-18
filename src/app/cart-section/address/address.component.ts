@@ -12,6 +12,7 @@ declare var $: any;
 export class AddressComponent implements OnInit {
 
   addressList: any;
+  loaderShow = false;
   constructor(private route: ActivatedRoute, private router: Router, private _globalSerive: GlobalService, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -51,13 +52,22 @@ export class AddressComponent implements OnInit {
   }
 
   setAddress(index: number) {
+    this.loaderShow = true;
     console.log({ address: this.addressList[index] });
     sessionStorage.setItem("deliveryAddress", JSON.stringify(this.addressList[index]));
     const subTotal = sessionStorage.getItem("subTotal");
     if (subTotal) {
-      this.http.get(`https://secret-crag-27299.herokuapp.com/stripe?amount=${JSON.parse(subTotal)}`).subscribe(
+      const subTotalAmount = JSON.parse(subTotal);
+      let finalAmount = 0;
+      if (((subTotalAmount / 4) / 10) <= 50) {
+        finalAmount = subTotalAmount + 50;
+      } else {
+        finalAmount = subTotalAmount + ((subTotalAmount / 4) / 10);
+      }
+      this.http.get(`https://secret-crag-27299.herokuapp.com/stripe?amount=${finalAmount}`).subscribe(
         (res: any) => {
           console.log(res);
+          this.loaderShow = false;
           this._globalSerive.stripe.redirectToCheckout({
             sessionId: res.id
           }).then(function (result: any) {

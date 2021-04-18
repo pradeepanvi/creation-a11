@@ -28,31 +28,33 @@ export class GlobalService {
         return this.http.get(`${this.firebaseData}shopPage.json`)
     }
     checkUser(user: any) {
-        this.user = user.id;
-        this.userObservable.next(user.id);
-        sessionStorage.setItem("user", JSON.stringify(user.id));
-        this.http.get(`${this.firebaseUser + user.id}.json`).subscribe(
-            (res: any) => {
-                this.checkoutData
-                if (res) {
-                    console.log(res);
-                } else {
-                    const userDetail = {
-                        id: user.id,
-                        name: user.name,
-                        email: user.email,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        provider: user.provider
-                    }
-                    this.http.put(`${this.firebaseUser + user.id}.json`, userDetail).subscribe(
-                        (res: any) => {
-                            console.log(res);
+        if (user && user.id) {
+            this.user = user.id;
+            this.userObservable.next(user.id);
+            sessionStorage.setItem("user", JSON.stringify(user.id));
+            this.http.get(`${this.firebaseUser + user.id}.json`).subscribe(
+                (res: any) => {
+                    this.checkoutData
+                    if (res) {
+                        console.log(res);
+                    } else {
+                        const userDetail = {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            provider: user.provider
                         }
-                    )
+                        this.http.put(`${this.firebaseUser + user.id}.json`, userDetail).subscribe(
+                            (res: any) => {
+                                console.log(res);
+                            }
+                        )
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     getCartPage() {

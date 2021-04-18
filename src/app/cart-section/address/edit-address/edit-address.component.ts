@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GlobalService } from 'src/app/shared/global.service';
+import { timer } from "rxjs";
 
 @Component({
   selector: 'app-edit-address',
@@ -14,7 +15,7 @@ export class EditAddressComponent implements OnInit {
   id: any;
   addressList = 0;
 
-  constructor(private fb: FormBuilder, private _globalSerive: GlobalService, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private _globalSerive: GlobalService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -33,6 +34,13 @@ export class EditAddressComponent implements OnInit {
       this._globalSerive.addAddress(this.addressList, this.addressForm.value);
       this.addressList++;
     }
+    const source = timer(3000);
+    source.subscribe(res => {
+      this.onCancel();
+    })
+  }
+  onCancel() {
+    this.router.navigateByUrl("cart/address");
   }
 
   private initForm() {
@@ -50,7 +58,11 @@ export class EditAddressComponent implements OnInit {
         addressType: this.fb.control(editAddress.addressType)
       })
     } else {
-      this.addressList = this._globalSerive.addressList.length;
+      if (this._globalSerive.addressList && this._globalSerive.addressList.length) {
+        this.addressList = this._globalSerive.addressList.length;
+      } else {
+        this.addressList = 0;
+      }
       this.addressForm = this.fb.group({
         name: this.fb.control(""),
         mobile: this.fb.control(""),
