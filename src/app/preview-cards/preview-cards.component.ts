@@ -26,7 +26,8 @@ export class PreviewCardsComponent implements OnInit {
 
   confirmCards() {
     console.log(this.previewCardsData);
-    this.router.navigate(["/shop"], { relativeTo: this.route })
+    sessionStorage.removeItem("uploadFile");
+    this.router.navigate(["/shop"], { relativeTo: this.route });
   }
 
 }

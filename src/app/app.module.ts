@@ -19,6 +19,9 @@ import { UploadCardsComponent } from './upload-cards/upload-cards.component';
 import { PreviewCardsComponent } from './preview-cards/preview-cards.component';
 import { UploadDesignComponent } from './upload-design/upload-design.component';
 import { MatFileUploadModule } from "angular-material-fileupload";
+import { SuccessComponent } from './success/success.component';
+import { ErrorComponent } from './error/error.component';
+import { CancelComponent } from './cancel/cancel.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { MatFileUploadModule } from "angular-material-fileupload";
     ShopComponent,
     UploadCardsComponent,
     PreviewCardsComponent,
-    UploadDesignComponent
+    UploadDesignComponent,
+    SuccessComponent,
+    ErrorComponent,
+    CancelComponent
   ],
   imports: [
     BrowserModule,

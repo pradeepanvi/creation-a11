@@ -15,6 +15,7 @@ export class GlobalService {
 
     uploadCardsData: any = {};
     uploadMessage = false;
+    stripe: any;
     constructor(private http: HttpClient) { }
 
     getHomePage() {
@@ -56,13 +57,15 @@ export class GlobalService {
     addToCart(cartItems: any) {
         return this.http.put(`${this.firebaseUser + this.user}/cartPage.json`, cartItems).subscribe(res => console.log(res));
     }
-    checkout(finalCart: any, subTotal: any) {
-        this.checkoutData = { finalCartItems: finalCart, subTotal: subTotal };
-        console.log(this.checkoutData);
-        // this.http.put(`${this.firebaseUser + this.user}/cartPage.json`, {}).subscribe(res => console.log(res));
-        // return this.http.put(`${this.firebaseUser + this.user}/history/${new Date()}.json`, this.checkoutData).subscribe(res => console.log(res));
+    checkout() {
+        const newDate = new Date();
+        const orderTime = `${newDate.getTime()}-${newDate.getDate()}-${newDate.getDay()}-${newDate.getFullYear()}`;
+        if (sessionStorage.getItem("uploadFile")) {
+            sessionStorage.removeItem("uploadCardsData");
+        }
+        this.checkoutData = JSON.stringify(sessionStorage);
+        return this.http.put(`${this.firebaseUser}${this.user}/orders/${orderTime}.json`, this.checkoutData).subscribe(res => console.log(res));
     }
-
 
     getAddress() {
         return this.http.get(`${this.firebaseUser}${this.user}/addressItems.json`);

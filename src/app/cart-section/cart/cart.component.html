@@ -12,19 +12,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngIf="cartItems.cardType != 'Select'">
             <td>Card</td>
             <td>{{ cartItems.cardType }}</td>
             <td>{{ cartItems.cardQty }}</td>
             <td>{{ cartItems.cardAmount * cartItems.cardQty }}</td>
           </tr>
-          <tr>
+          <tr *ngIf="cartItems.doriType != 'Select'">
             <td>Dori</td>
             <td>{{ cartItems.doriType }}</td>
             <td>{{ cartItems.doriQty }}</td>
             <td>{{ cartItems.doriAmount * cartItems.doriQty }}</td>
           </tr>
-          <tr>
+          <tr *ngIf="cartItems.holderType != 'Select'">
             <td>Holder</td>
             <td>{{ cartItems.holderType }}</td>
             <td>{{ cartItems.holderQty }}</td>

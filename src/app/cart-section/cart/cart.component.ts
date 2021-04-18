@@ -51,6 +51,7 @@ export class CartComponent implements OnInit {
     this.stripeService.setPublishableKey('pk_test_51IJaeQGdR5gcqr0pN9aQhpoN15knmeRUkiVGP00YhXtP76HFmlGmVde8jsa0rt9xbKjRlWJeBpG4u20BgNm5cmCm00Lw0guskA').then(
       stripe => {
         this.stripe = stripe;
+        this.globalService.stripe = stripe;
       }
     )
   }
@@ -61,7 +62,11 @@ export class CartComponent implements OnInit {
       let cartItem = JSON.parse(cartPage);
       this.cartItems = cartItem;
       console.log(this.cartItems);
-      this.subTotal = (this.cartItems.cardAmount * this.cartItems.cardQty) + (this.cartItems.doriAmount * this.cartItems.doriQty) + (this.cartItems.holderAmount * this.cartItems.holderQty)
+      this.subTotal =
+        ((this.cartItems.cardType != "Select") ? this.cartItems.cardAmount * this.cartItems.cardQty : 0) +
+        ((this.cartItems.doriType != "Select") ? this.cartItems.doriAmount * this.cartItems.doriQty : 0) +
+        ((this.cartItems.holderType != "Select") ? this.cartItems.holderAmount * this.cartItems.holderQty : 0);
+      sessionStorage.setItem("subTotal", JSON.stringify(this.subTotal));
     }
   }
 
@@ -69,7 +74,6 @@ export class CartComponent implements OnInit {
     this.router.navigate(['../shop'], { relativeTo: this.route });
   }
   checkout() {
-    this.globalService.checkout(this.finalCartItems, this.subTotal);
     this.router.navigate(['address'], { relativeTo: this.route });
   }
 
