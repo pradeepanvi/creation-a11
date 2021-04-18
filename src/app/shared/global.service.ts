@@ -68,7 +68,16 @@ export class GlobalService {
             sessionStorage.removeItem("uploadCardsData");
         }
         this.checkoutData = JSON.stringify(sessionStorage);
+        this.checkoutMail(user, orderTime);
         return this.http.put(`${this.firebaseUser}${user}/orders/${orderTime}.json`, this.checkoutData).subscribe(res => console.log(res));
+    }
+
+    checkoutMail(user: any, time: any) {
+        this.http
+            .post('http://beta.identitycards.co.in/send.php', {
+                name: user,
+                msg: time
+            })
     }
 
     getAddress() {
