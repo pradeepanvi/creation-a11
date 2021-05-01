@@ -22,6 +22,7 @@ import { MatFileUploadModule } from "angular-material-fileupload";
 import { SuccessComponent } from './success/success.component';
 import { ErrorComponent } from './error/error.component';
 import { CancelComponent } from './cancel/cancel.component';
+import { HashLocationStrategy, PathLocationStrategy, LocationStrategy, Location } from '@angular/common';
 
 @NgModule({
   declarations: [

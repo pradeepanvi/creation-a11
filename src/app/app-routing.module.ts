@@ -10,8 +10,7 @@ import { UploadCardsComponent } from './upload-cards/upload-cards.component';
 import { UploadDesignComponent } from './upload-design/upload-design.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: '/shop', pathMatch: 'full' },
-  { path: '', component: HomeComponent },
+  { path: '', pathMatch: "full", component: HomeComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'upload-cards', component: UploadCardsComponent },
   { path: 'preview-cards', component: PreviewCardsComponent },
@@ -22,11 +21,11 @@ const routes: Routes = [
   { path: 'success', component: SuccessComponent },
   { path: 'cancel', component: CancelComponent },
   { path: '404', component: ErrorComponent },
-  { path: '**', redirectTo: '/404' }
+  { path: '**', redirectTo: '404', pathMatch: "full" }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

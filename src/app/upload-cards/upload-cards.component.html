@@ -20,14 +20,21 @@
               <label for="floatingInputValue">Your Company Name</label>
             </div>
             <div class="form-floating mb-3">
+              <button
+                type="button"
+                class="btn btn-info"
+                (click)="fileLogo.click()"
+              >
+                Upload Company Logo
+              </button>
               <input
                 type="file"
-                class="form-control"
+                #fileLogo
+                class="form-control d-none"
                 id="floatingInputValue"
                 placeholder="Your Company Logo"
                 (change)="handleLogoFileInput($event, 'companyLogo')"
               />
-              <label for="floatingInputValue">Your Company Logo</label>
               <img [src]="companyLogo.value" />
               <input type="hidden" formControlName="companyLogo" #companyLogo />
             </div>
@@ -51,28 +58,20 @@
         >
           <section class="card">
             <button type="button" class="close_btn" (click)="removeCard(i)">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-backspace-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"
-                />
-              </svg>
+              <i class="bi bi-backspace-fill"></i>
             </button>
             <div class="form-floating mb-3">
+              <button type="button" class="btn btn-info" (click)="file.click()">
+                Upload Photo
+              </button>
               <input
                 type="file"
-                class="form-control"
+                #file
+                class="form-control d-none"
                 id="empPhoto"
                 placeholder="Photo"
                 (change)="handleEmpPhotoInput($event, 'empPhoto', i)"
               />
-              <label for="empPhoto">Photo</label>
               <img [src]="empPhoto.value" />
               <input type="hidden" formControlName="empPhoto" #empPhoto />
             </div>
@@ -151,18 +150,7 @@
         <div class="col-sm-4 mb-4">
           <section class="card single_btn">
             <button type="button" (click)="addCard()">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-plus-circle-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
-                />
-              </svg>
+              <i class="bi bi-plus-circle-fill"></i>
             </button>
           </section>
         </div>

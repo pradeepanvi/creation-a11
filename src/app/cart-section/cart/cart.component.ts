@@ -13,27 +13,16 @@ import { AngularStripeService } from "@fireflysemantics/angular-stripe-service";
 })
 export class CartComponent implements OnInit {
   title = "Shopping Cart";
-  quantity = [
-    { value: '1' },
-    { value: '2' },
-    { value: '3' },
-    { value: '4' },
-    { value: '5' },
-    { value: '6' },
-    { value: '7' },
-    { value: '8' },
-    { value: '9' },
-    { value: '10+' }
-  ];
-
   cartItems: any;
   shopItems: any;
 
   finalCartItems: any = [];
   subTotal: number = 0;
-  loaderShow = false;
+  loaderShow = true;
 
   stripe: any;
+  serviceCharge: number = 0;
+  total: number = 0;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -67,11 +56,20 @@ export class CartComponent implements OnInit {
         ((this.cartItems.doriType != "Select") ? this.cartItems.doriAmount * this.cartItems.doriQty : 0) +
         ((this.cartItems.holderType != "Select") ? this.cartItems.holderAmount * this.cartItems.holderQty : 0);
       sessionStorage.setItem("subTotal", JSON.stringify(this.subTotal));
+
+      if (((this.subTotal / 4) / 10) <= 50) {
+        this.serviceCharge = 50;
+        this.total = this.subTotal + 50;
+      } else {
+        this.serviceCharge = ((this.subTotal / 4) / 10);
+        this.total = this.subTotal + ((this.subTotal / 4) / 10);
+      }
     }
+    this.loaderShow = false;
   }
 
   continueShop() {
-    this.router.navigate(['../shop'], { relativeTo: this.route });
+    this.router.navigate(['../upload-design'], { relativeTo: this.route });
   }
   checkout() {
     this.router.navigate(['address'], { relativeTo: this.route });

@@ -43,8 +43,20 @@ section {
       }
     }
   }
+  &.empty_cart {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    i {
+      font-size: 100px;
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+  }
 }
-table {
+table.cart_table {
   margin-bottom: 20px;
   tbody {
     tr {
