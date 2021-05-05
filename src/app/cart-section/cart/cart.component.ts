@@ -80,49 +80,28 @@ export class CartComponent implements OnInit {
 
   private checkShipment() {
     const deliveryAddress = sessionStorage.getItem("deliveryAddress");
-    const amount50 = 50;
     if (deliveryAddress) {
       const state = JSON.parse(deliveryAddress).state;
       if (state.toLowerCase() == "delhi") {
         this.isDelhi = true;
-        if (this.subTotal <= 1500 && this.subTotal >= 50) {
-          this.serviceCharge = ((this.subTotal / 15));
-          this.cgst = (this.subTotal + this.serviceCharge) / 9;
-          this.sgst = this.cgst;
-          this.total = this.subTotal + this.cgst + this.sgst + ((this.subTotal / 15));
-        } else if (this.subTotal <= 8000 && this.subTotal >= 1500) {
-          this.serviceCharge = ((this.subTotal / 10));
-          this.cgst = (this.subTotal + this.serviceCharge) / 9;
-          this.sgst = this.cgst;
-          this.total = this.subTotal + this.cgst + this.sgst + ((this.subTotal / 10));
-        } else if (((this.subTotal / 4) / 10) <= amount50) {
-          this.serviceCharge = amount50;
-          this.cgst = (this.subTotal + this.serviceCharge) / 9;
-          this.sgst = this.cgst;
-          this.total = this.subTotal + this.cgst + this.sgst + amount50;
+        if ((this.subTotal * (4 / 100)) <= 50) {
+          this.setGst()
+        } else if ((this.subTotal * (4 / 100)) >= 50 && this.subTotal <= 1500) {
+          this.setGst(15);
+        } else if (this.subTotal >= 1500 && this.subTotal <= 8000) {
+          this.setGst(10)
         } else {
-          this.serviceCharge = ((this.subTotal / 4) / 10);
-          this.cgst = (this.subTotal + this.serviceCharge) / 9;
-          this.sgst = this.cgst;
-          this.total = this.subTotal + this.cgst + this.sgst + ((this.subTotal / 4) / 10);
+          this.setGst(4);
         }
       } else {
-        if (this.subTotal <= 1500 && this.subTotal >= 80) {
-          this.serviceCharge = (this.subTotal / 20);
-          this.igst = (this.subTotal + this.serviceCharge) / 18;
-          this.total = this.subTotal + this.igst + ((this.subTotal / 20));
-        } else if (this.subTotal <= 10000 && this.subTotal >= 1500) {
-          this.serviceCharge = ((this.subTotal / 15));
-          this.igst = (this.subTotal + this.serviceCharge) / 18;
-          this.total = this.subTotal + this.igst + ((this.subTotal / 15));
-        } else if (((this.subTotal / 4) / 10) <= 80) {
-          this.serviceCharge = 80;
-          this.igst = (this.subTotal + this.serviceCharge) / 18;
-          this.total = this.subTotal + this.igst + 80;
+        if ((this.subTotal * (4 / 100)) <= 80) {
+          this.setIGst()
+        } else if ((this.subTotal * (4 / 100)) >= 80 && this.subTotal <= 1500) {
+          this.setIGst(20)
+        } else if (this.subTotal >= 1500 && this.subTotal <= 10000) {
+          this.setIGst(15)
         } else {
-          this.serviceCharge = ((this.subTotal / 4) / 10);
-          this.igst = (this.subTotal + this.serviceCharge) / 18;
-          this.total = this.subTotal + this.igst + ((this.subTotal / 4) / 10);
+          this.setIGst(4)
         }
       }
       this.serviceChargefinal = parseInt(this.serviceCharge);
@@ -132,6 +111,27 @@ export class CartComponent implements OnInit {
       this.totalfinal = parseInt(this.total);
     }
 
+  }
+
+  private setGst(serviceCharge = 50) {
+    if (serviceCharge !== 50) {
+      this.serviceCharge = this.subTotal * (serviceCharge / 100)
+    } else {
+      this.serviceCharge = serviceCharge;
+    }
+    this.cgst = (this.subTotal + this.serviceCharge) * (9 / 100);
+    this.sgst = this.cgst;
+    this.total = this.serviceCharge + this.subTotal + this.cgst + this.sgst;
+  }
+
+  private setIGst(serviceCharge = 80) {
+    if (serviceCharge !== 80) {
+      this.serviceCharge = this.subTotal * (serviceCharge / 100)
+    } else {
+      this.serviceCharge = serviceCharge;
+    }
+    this.igst = (this.subTotal + this.serviceCharge) * (18 / 100);
+    this.total = this.serviceCharge + this.subTotal + this.igst;
   }
 
 }
