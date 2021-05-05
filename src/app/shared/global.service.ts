@@ -31,7 +31,7 @@ export class GlobalService {
         if (user && user.id) {
             this.user = user.id;
             this.userObservable.next(user.id);
-            sessionStorage.setItem("user", JSON.stringify(user.id));
+            sessionStorage.setItem("user", user.id);
             this.http.get(`${this.firebaseUser + user.id}.json`).subscribe(
                 (res: any) => {
                     this.checkoutData

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { GlobalService } from 'src/app/shared/global.service';
 declare var $: any;
 
@@ -13,7 +14,14 @@ export class AddressComponent implements OnInit {
 
   addressList: any;
   loaderShow = false;
-  constructor(private route: ActivatedRoute, private router: Router, private _globalSerive: GlobalService, private http: HttpClient) { }
+  stripe: any;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private _globalSerive: GlobalService,
+    private http: HttpClient,
+    private stripeService: AngularStripeService
+  ) { }
 
   ngOnInit(): void {
     this.getFirebaseAddressList();
@@ -55,27 +63,13 @@ export class AddressComponent implements OnInit {
     this.loaderShow = true;
     console.log({ address: this.addressList[index] });
     sessionStorage.setItem("deliveryAddress", JSON.stringify(this.addressList[index]));
-    const subTotal = sessionStorage.getItem("subTotal");
-    if (subTotal) {
-      const subTotalAmount = JSON.parse(subTotal);
-      let finalAmount = 0;
-      if (((subTotalAmount / 4) / 10) <= 50) {
-        finalAmount = subTotalAmount + 50;
-      } else {
-        finalAmount = subTotalAmount + ((subTotalAmount / 4) / 10);
+    this.stripeService.setPublishableKey('pk_test_51IJaeQGdR5gcqr0pN9aQhpoN15knmeRUkiVGP00YhXtP76HFmlGmVde8jsa0rt9xbKjRlWJeBpG4u20BgNm5cmCm00Lw0guskA').then(
+      stripe => {
+        this.stripe = stripe;
+        this._globalSerive.stripe = stripe;
+        this.router.navigate(['/cart'], { relativeTo: this.route })
       }
-      this.http.get(`https://secret-crag-27299.herokuapp.com/stripe?amount=${finalAmount}`).subscribe(
-        (res: any) => {
-          console.log(res);
-          this.loaderShow = false;
-          this._globalSerive.stripe.redirectToCheckout({
-            sessionId: res.id
-          }).then(function (result: any) {
-            console.log(result);
-          });
-        }
-      )
-    }
+    )
   }
   editAddress(index: number) {
     this.router.navigate([index], { relativeTo: this.route })

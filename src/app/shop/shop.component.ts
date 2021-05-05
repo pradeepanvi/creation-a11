@@ -42,7 +42,7 @@ export class ShopComponent implements OnInit {
   public onSubmit() {
     console.log(this.restItemsForm.value);
     sessionStorage.setItem("cartPage", JSON.stringify(this.restItemsForm.value));
-    this.router.navigate(["/cart"], { relativeTo: this.route })
+    this.router.navigate(["/cart/address"], { relativeTo: this.route })
   }
 
   public minusQty() {

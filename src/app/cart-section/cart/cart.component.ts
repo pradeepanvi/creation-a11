@@ -17,19 +17,24 @@ export class CartComponent implements OnInit {
   shopItems: any;
 
   finalCartItems: any = [];
-  subTotal: number = 0;
+  subTotal = 0;
   loaderShow = true;
 
   stripe: any;
-  serviceCharge: number = 0;
-  total: number = 0;
+  serviceCharge: any = 0;
+  total: any = 0;
+  isDelhi = false;
+  cgst: any = 0; igst: any = 0; sgst: any = 0;
+  cgstfinal = 0; igstfinal = 0; sgstfinal = 0;
+  serviceChargefinal = 0;
+  totalfinal = 0
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private globalService: GlobalService,
-    private stripeService: AngularStripeService
+    private _globalSerive: GlobalService,
+
   ) { }
 
   ngOnInit(): void {
@@ -37,12 +42,7 @@ export class CartComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_51IJaeQGdR5gcqr0pN9aQhpoN15knmeRUkiVGP00YhXtP76HFmlGmVde8jsa0rt9xbKjRlWJeBpG4u20BgNm5cmCm00Lw0guskA').then(
-      stripe => {
-        this.stripe = stripe;
-        this.globalService.stripe = stripe;
-      }
-    )
+
   }
 
   getCartItem() {
@@ -56,14 +56,7 @@ export class CartComponent implements OnInit {
         ((this.cartItems.doriType != "Select") ? this.cartItems.doriAmount * this.cartItems.doriQty : 0) +
         ((this.cartItems.holderType != "Select") ? this.cartItems.holderAmount * this.cartItems.holderQty : 0);
       sessionStorage.setItem("subTotal", JSON.stringify(this.subTotal));
-
-      if (((this.subTotal / 4) / 10) <= 50) {
-        this.serviceCharge = 50;
-        this.total = this.subTotal + 50;
-      } else {
-        this.serviceCharge = ((this.subTotal / 4) / 10);
-        this.total = this.subTotal + ((this.subTotal / 4) / 10);
-      }
+      this.checkShipment();
     }
     this.loaderShow = false;
   }
@@ -72,7 +65,73 @@ export class CartComponent implements OnInit {
     this.router.navigate(['../upload-design'], { relativeTo: this.route });
   }
   checkout() {
-    this.router.navigate(['address'], { relativeTo: this.route });
+    this.http.get(`https://secret-crag-27299.herokuapp.com/stripe?amount=${this.totalfinal}`).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.loaderShow = false;
+        this._globalSerive.stripe.redirectToCheckout({
+          sessionId: res.id
+        }).then(function (result: any) {
+          console.log(result);
+        });
+      }
+    )
+  }
+
+  private checkShipment() {
+    const deliveryAddress = sessionStorage.getItem("deliveryAddress");
+    const amount50 = 50;
+    if (deliveryAddress) {
+      const state = JSON.parse(deliveryAddress).state;
+      if (state.toLowerCase() == "delhi") {
+        this.isDelhi = true;
+        if (this.subTotal <= 1500 && this.subTotal >= 50) {
+          this.serviceCharge = ((this.subTotal / 15));
+          this.cgst = (this.subTotal + this.serviceCharge) / 9;
+          this.sgst = this.cgst;
+          this.total = this.subTotal + this.cgst + this.sgst + ((this.subTotal / 15));
+        } else if (this.subTotal <= 8000 && this.subTotal >= 1500) {
+          this.serviceCharge = ((this.subTotal / 10));
+          this.cgst = (this.subTotal + this.serviceCharge) / 9;
+          this.sgst = this.cgst;
+          this.total = this.subTotal + this.cgst + this.sgst + ((this.subTotal / 10));
+        } else if (((this.subTotal / 4) / 10) <= amount50) {
+          this.serviceCharge = amount50;
+          this.cgst = (this.subTotal + this.serviceCharge) / 9;
+          this.sgst = this.cgst;
+          this.total = this.subTotal + this.cgst + this.sgst + amount50;
+        } else {
+          this.serviceCharge = ((this.subTotal / 4) / 10);
+          this.cgst = (this.subTotal + this.serviceCharge) / 9;
+          this.sgst = this.cgst;
+          this.total = this.subTotal + this.cgst + this.sgst + ((this.subTotal / 4) / 10);
+        }
+      } else {
+        if (this.subTotal <= 1500 && this.subTotal >= 80) {
+          this.serviceCharge = (this.subTotal / 20);
+          this.igst = (this.subTotal + this.serviceCharge) / 18;
+          this.total = this.subTotal + this.igst + ((this.subTotal / 20));
+        } else if (this.subTotal <= 10000 && this.subTotal >= 1500) {
+          this.serviceCharge = ((this.subTotal / 15));
+          this.igst = (this.subTotal + this.serviceCharge) / 18;
+          this.total = this.subTotal + this.igst + ((this.subTotal / 15));
+        } else if (((this.subTotal / 4) / 10) <= 80) {
+          this.serviceCharge = 80;
+          this.igst = (this.subTotal + this.serviceCharge) / 18;
+          this.total = this.subTotal + this.igst + 80;
+        } else {
+          this.serviceCharge = ((this.subTotal / 4) / 10);
+          this.igst = (this.subTotal + this.serviceCharge) / 18;
+          this.total = this.subTotal + this.igst + ((this.subTotal / 4) / 10);
+        }
+      }
+      this.serviceChargefinal = parseInt(this.serviceCharge);
+      this.cgstfinal = parseInt(this.cgst);
+      this.sgstfinal = parseInt(this.sgst);
+      this.igstfinal = parseInt(this.igst);
+      this.totalfinal = parseInt(this.total);
+    }
+
   }
 
 }

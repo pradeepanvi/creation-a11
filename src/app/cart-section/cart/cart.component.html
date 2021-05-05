@@ -50,12 +50,26 @@
             <td>{{ subTotal }}</td>
           </tr>
           <tr>
-            <th>Service Charge :</th>
-            <td>{{ serviceCharge }}</td>
+            <th>Shipping Charge :</th>
+            <td>{{ serviceChargefinal }}</td>
+          </tr>
+          <ng-container *ngIf="isDelhi">
+            <tr>
+              <th>CGST 9%:</th>
+              <td>{{ cgstfinal }}</td>
+            </tr>
+            <tr>
+              <th>SGST 9%:</th>
+              <td>{{ sgstfinal }}</td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="!isDelhi">
+            <th>IGST 18%:</th>
+            <td>{{ igstfinal }}</td>
           </tr>
           <tr>
             <th>Total :</th>
-            <td>{{ total }}</td>
+            <td>{{ totalfinal }}</td>
           </tr>
         </tbody>
       </table>
@@ -92,9 +106,10 @@
   </div>
 </div>
 
-<div class="loader_inner" *ngIf="loaderShow">
+<div class="loader" *ngIf="loaderShow">
   <div class="table_t">
     <div class="cell_t">
+      <h2>Please wait your payment beign proceed</h2>
       <img src="/assets/images/rings-loader.svg" alt="" />
     </div>
   </div>
