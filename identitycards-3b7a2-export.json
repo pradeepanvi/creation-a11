@@ -1,161 +1,246 @@
 {
-  "homePage" : {
-    "ourClient" : {
-      "clientItems" : [ {
-        "name" : "Softona",
-        "url" : "assets/images/client-logo1.jpg"
-      }, {
-        "name" : "Web Excel Solution",
-        "url" : "assets/images/client-logo2.jpg"
-      }, {
-        "name" : "EasySol",
-        "url" : "assets/images/client-logo3.jpg"
-      }, {
-        "name" : "No 1",
-        "url" : "assets/images/client-logo4.jpg"
-      }, {
-        "name" : "Ind Innovations Pvt",
-        "url" : "assets/images/client-logo5.jpg"
-      }, {
-        "name" : "Radical Minds",
-        "url" : "assets/images/client-logo6.jpg"
-      }, {
-        "name" : "IQ Zone",
-        "url" : "assets/images/client-logo7.jpg"
-      }, {
-        "name" : "Idea",
-        "url" : "assets/images/client-logo8.jpg"
-      }, {
-        "name" : "KMS",
-        "url" : "assets/images/client-logo9.jpg"
-      }, {
-        "name" : "DM Group",
-        "url" : "assets/images/client-logo10.jpg"
-      }, {
-        "name" : "Premium Reseller",
-        "url" : "assets/images/client-logo11.jpg"
-      } ],
-      "des" : "Here are our some Prestigious Clients",
-      "title" : "Our Clients"
+  "homePage": {
+    "ourClient": {
+      "clientItems": [
+        {
+          "name": "Softona",
+          "url": "assets/images/client-logo1.jpg"
+        },
+        {
+          "name": "Web Excel Solution",
+          "url": "assets/images/client-logo2.jpg"
+        },
+        {
+          "name": "EasySol",
+          "url": "assets/images/client-logo3.jpg"
+        },
+        {
+          "name": "No 1",
+          "url": "assets/images/client-logo4.jpg"
+        },
+        {
+          "name": "Ind Innovations Pvt",
+          "url": "assets/images/client-logo5.jpg"
+        },
+        {
+          "name": "Radical Minds",
+          "url": "assets/images/client-logo6.jpg"
+        },
+        {
+          "name": "IQ Zone",
+          "url": "assets/images/client-logo7.jpg"
+        },
+        {
+          "name": "Idea",
+          "url": "assets/images/client-logo8.jpg"
+        },
+        {
+          "name": "KMS",
+          "url": "assets/images/client-logo9.jpg"
+        },
+        {
+          "name": "DM Group",
+          "url": "assets/images/client-logo10.jpg"
+        },
+        {
+          "name": "Premium Reseller",
+          "url": "assets/images/client-logo11.jpg"
+        }
+      ],
+      "des": "Here are our some Prestigious Clients",
+      "title": "Our Clients"
     },
-    "ourProduct" : {
-      "des" : "Our PVC Identity Cards Accessories for making a CARD",
-      "productItems" : [ {
-        "des" : "We provide PVC Card, Identity Card for Institution & Companies.",
-        "name" : "PVC ID Cards",
-        "url" : "assets/images/img01.jpg"
-      }, {
-        "des" : "Magnetic Stripped card stores embossed information.",
-        "name" : "Magnetic Striping Card",
-        "url" : "assets/images/img02.jpg"
-      }, {
-        "des" : "We provide ID Card Dori Corporate Companies.",
-        "name" : "Official Dori",
-        "url" : "assets/images/img03.jpg"
-      }, {
-        "des" : "We provide Digitally printed Lanyard / Dori.",
-        "name" : "Digital Lanyard / Dori",
-        "url" : "assets/images/img04.jpg"
-      } ],
-      "title" : "Our Product"
+    "ourService": {
+      "des": "PVC ID Cards, Plastic ID Cards, RFID Identity Cards & Magnetic ID Cards.",
+      "serviceItems": [
+        {
+          "des": "We create ID Cards with powerful creative designs and according to the requirement.",
+          "icon": "creative-icon",
+          "name": "Creative Design for Identity Cards"
+        },
+        {
+          "des": "We provide every kinds of Identity Cards Solutions. PVC ID Cards, Magnetic Cards, RFID Cards, Scratching Cards",
+          "icon": "identity-icon",
+          "name": "Identity Cards Solutions"
+        },
+        {
+          "des": "We provide for our customer best and committed services. Give us chance to serve you one time.",
+          "icon": "best-icon",
+          "name": "Best & Committed Service"
+        }
+      ],
+      "title": "Our Services"
     },
-    "ourService" : {
-      "des" : "PVC ID Cards, Plastic ID Cards, RFID Identity Cards & Magnetic ID Cards.",
-      "serviceItems" : [ {
-        "des" : "We create ID Cards with powerful creative designs and according to the requirement.",
-        "icon" : "creative-icon",
-        "name" : "Creative Design for Identity Cards"
-      }, {
-        "des" : "We provide every kinds of Identity Cards Solutions. PVC ID Cards, Magnetic Cards, RFID Cards, Scratching Cards",
-        "icon" : "identity-icon",
-        "name" : "Identity Cards Solutions"
-      }, {
-        "des" : "We provide for our customer best and committed services. Give us chance to serve you one time.",
-        "icon" : "best-icon",
-        "name" : "Best & Committed Service"
-      } ],
-      "title" : "Our Services"
-    },
-    "sliderItems" : [ {
-      "name" : "img1",
-      "url" : "assets/images/cards/card-1.jpg"
-    }, {
-      "name" : "img2",
-      "url" : "assets/images/cards/card-2.jpg"
-    }, {
-      "name" : "img3",
-      "url" : "assets/images/cards/card-3.jpg"
-    }, {
-      "name" : "img4",
-      "url" : "assets/images/cards/card-4.jpg"
-    }, {
-      "name" : "img5",
-      "url" : "assets/images/cards/card-5.jpg"
-    }, {
-      "name" : "img6",
-      "url" : "assets/images/cards/card-6.jpg"
-    }, {
-      "name" : "img7",
-      "url" : "assets/images/cards/card-7.jpg"
-    }, {
-      "name" : "img8",
-      "url" : "assets/images/cards/card-8.jpg"
-    }, {
-      "name" : "img9",
-      "url" : "assets/images/cards/card-9.jpg"
-    }, {
-      "name" : "img10",
-      "url" : "assets/images/cards/card-10.jpg"
-    }, {
-      "name" : "img11",
-      "url" : "assets/images/cards/card-11.jpg"
-    }, {
-      "name" : "img11 back",
-      "url" : "assets/images/cards/card-11-back.jpg"
-    }, {
-      "name" : "img12",
-      "url" : "assets/images/cards/card-12.jpg"
-    }, {
-      "name" : "img12 back",
-      "url" : "assets/images/cards/card-12-back.jpg"
-    } ],
-    "welcome" : {
-      "btnTxt" : "Order Now",
-      "des" : "Give <b>Identity</b> to your Business Go Now for Identity Cards",
-      "title" : "Welcome to Identity Cards"
+    "cardSlider": [
+      {
+        "name": "PVC Card1",
+        "url": "assets/images/cards/card-1.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card2",
+        "url": "assets/images/cards/card-2.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card3",
+        "url": "assets/images/cards/card-3.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card4",
+        "url": "assets/images/cards/card-4.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card5",
+        "url": "assets/images/cards/card-5.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card6",
+        "url": "assets/images/cards/card-6.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card7",
+        "url": "assets/images/cards/card-7.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card8",
+        "url": "assets/images/cards/card-8.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card9",
+        "url": "assets/images/cards/card-9.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card10",
+        "url": "assets/images/cards/card-10.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card11",
+        "url": "assets/images/cards/card-11.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card11 Back",
+        "url": "assets/images/cards/card-11-back.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card12",
+        "url": "assets/images/cards/card-12.jpg",
+        "checked": false
+      },
+      {
+        "name": "PVC Card12 back",
+        "url": "assets/images/cards/card-12-back.jpg",
+        "checked": false
+      }
+    ],
+    "holderSlider": [
+      {
+        "name": "holder1",
+        "url": "assets/images/dori/dori05.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder2",
+        "url": "assets/images/holders/holder2.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder2",
+        "url": "assets/images/holders/holder3.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder4.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder5.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder6.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder7.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder8.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder9.jpg",
+        "checked": false
+      }
+    ],
+    "lanyardSlider": [
+      {
+        "name": "20mm Multicolor",
+        "url": "assets/images/dori/Multicolor.jpg",
+        "checked": false
+      },
+      {
+        "name": "16mm Multicolor",
+        "url": "assets/images/dori/16mm_Multicolor.jpg",
+        "checked": false
+      },
+      {
+        "name": "20mm Plain Royal Blue",
+        "url": "assets/images/dori/20mm_plain.jpg",
+        "checked": false
+      },
+      {
+        "name": "RoyalBlue Polyster",
+        "url": "assets/images/dori/rbpolyster.jpg",
+        "checked": false
+      },
+      {
+        "name": "20mm Single Color",
+        "url": "assets/images/dori/screenprint.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/dori/dori04.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/dori/dori04.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder8.jpg",
+        "checked": false
+      },
+      {
+        "name": "holder1",
+        "url": "assets/images/holders/holder9.jpg",
+        "checked": false
+      }
+    ],
+    "welcome": {
+      "btnTxt": "Order Now",
+      "des": "Give <b>Identity</b> to your Business Go Now for Identity Cards",
+      "title": "Welcome to Identity Cards"
     }
-  },
-  "uploadDesign" : {
-    "headText" : "<h2>Upload or Enter Details here, Our Expert will create a new Design for your Reputed Firm</h2><p>However you can mention any format from our website in notes</p>",
-    "alertMsg" : "Before start journey you must have logged In",
-    "uploadBtn" : "Upload Design",
-    "des" : "<h2>Kindly upload details as required like</h2><ul><li><i class='bi bi-exclamation-circle'></i>Employee Name</li><li><i class="bi bi-exclamation-circle"></i>
-            Designation
-          </li>
-          <li>
-            <i class="bi bi-exclamation-circle"></i>
-            DOB
-          </li>
-          <li>
-            <i class="bi bi-exclamation-circle"></i>
-            Employee Code
-          </li>
-          <li>
-            <i class="bi bi-exclamation-circle"></i>
-            Emergency Contact No. with its respective photos in Excel Sheet.
-          </li>
-          <li>
-            <i class="bi bi-exclamation-circle"></i>
-            Share Organisation Logo open file / jpeg / png file and address.
-          </li>
-          <li>
-            <i class="bi bi-exclamation-circle"></i>
-            However you can share your previous card design also.
-          </li>
-          <li>
-            <i class="bi bi-exclamation-circle"></i>
-            <i>All files & details should be in Rar, Zip compressed file.</i>
-          </li>
-        </ul>"
   }
 }

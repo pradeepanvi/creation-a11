@@ -11,6 +11,10 @@
         }
         td {
           &:first-child {
+            max-width: 200px;
+            max-height: 200px;
+          }
+          &:nth-child(2) {
             width: 40%;
           }
         }

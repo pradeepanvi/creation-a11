@@ -15,41 +15,157 @@
       }}</a>
     </div>
   </div>
-  <a class="go_down" href="#samples"></a>
+  <a class="go_down" href="#our_product"></a>
 </div>
-<div id="samples" class="d-flex align-items-center">
-  <div class="container-xxl">
-    <div class="carousel">
-      <div *ngFor="let slide of slider" class="slide">
-        <img [src]="slide.url" [alt]="slide.name" />
-      </div>
-    </div>
-  </div>
-</div>
-<div id="our_product" class="d-flex align-items-center">
+<div id="our_product" class="d-flex align-items-center carousel-container">
   <div class="container-xxl">
     <div class="head_area">
-      <h2>{{ ourProduct.title }}</h2>
-      <p>{{ ourProduct.des }}</p>
+      <h2>Product / Service</h2>
     </div>
-    <div class="row">
-      <div
-        class="col-sm-6 col-md-3"
-        *ngFor="let product of ourProduct.productItems"
-      >
-        <aside>
-          <div class="img_area">
-            <img [src]="product.url" [alt]="product.name" />
+    <form [formGroup]="productForm" (ngSubmit)="onSubmitProduct()">
+      <h3 class="carousel_head">ID Cards</h3>
+      <div class="carousel" formArrayName="cardsSlider">
+        <div
+          *ngFor="let slide of cardsSliderArray.controls; let i = index"
+          class="slide"
+          [formGroupName]="i"
+        >
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">{{ Name.value }}</h4>
+              <input type="text" class="d-none" formControlName="name" #Name />
+            </div>
+            <div class="card-body">
+              <img [src]="Card.value" [alt]="Name.value" />
+              <input type="text" class="d-none" formControlName="url" #Card />
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="slider_check_{{ i }}"
+                autocomplete="off"
+                #slider_check
+                formControlName="checked"
+              />
+              <button
+                type="button"
+                (click)="slider_check.click()"
+                class="w-100 mt-3 btn"
+                [ngClass]="
+                  slider_check.checked ? 'btn-primary' : 'btn-outline-secondary'
+                "
+              >
+                <ng-container *ngIf="!slider_check.checked">
+                  Select
+                </ng-container>
+                <ng-container *ngIf="slider_check.checked">
+                  Selected
+                </ng-container>
+              </button>
+            </div>
           </div>
-          <div class="txt_area">
-            <p class="head">{{ product.name }}</p>
-            <p>{{ product.des }}</p>
-          </div>
-        </aside>
+        </div>
       </div>
-    </div>
+
+      <h3 class="carousel_head">Bedges / Holders</h3>
+      <div class="carousel" formArrayName="holdersSlider">
+        <div
+          *ngFor="let holder of holdersSliderArray.controls; let i = index"
+          class="slide"
+          [formGroupName]="i"
+        >
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">{{ Name.value }}</h4>
+              <input type="text" class="d-none" formControlName="name" #Name />
+            </div>
+            <div class="card-body">
+              <img [src]="Holder.value" [alt]="Name.value" />
+              <input type="text" class="d-none" formControlName="url" #Holder />
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="holder_check_{{ i }}"
+                autocomplete="off"
+                #holder_check
+                formControlName="checked"
+              />
+              <button
+                type="button"
+                (click)="holder_check.click()"
+                class="w-100 mt-3 btn"
+                [ngClass]="
+                  holder_check.checked ? 'btn-primary' : 'btn-outline-secondary'
+                "
+              >
+                <ng-container *ngIf="!holder_check.checked">
+                  Select
+                </ng-container>
+                <ng-container *ngIf="holder_check.checked">
+                  Selected
+                </ng-container>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="carousel_head">Dori / Lanyards</h3>
+      <div class="carousel" formArrayName="lanyardsSlider">
+        <div
+          *ngFor="let lanyard of lanyardsSliderArray.controls; let i = index"
+          class="slide"
+          [formGroupName]="i"
+        >
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">{{ Name.value }}</h4>
+              <input type="text" class="d-none" formControlName="name" #Name />
+            </div>
+            <div class="card-body">
+              <img [src]="Lanyard.value" [alt]="Name.value" />
+              <input
+                type="text"
+                class="d-none"
+                formControlName="url"
+                #Lanyard
+              />
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="lanyard_check_{{ i }}"
+                autocomplete="off"
+                #lanyard_check
+                formControlName="checked"
+              />
+              <button
+                type="button"
+                (click)="lanyard_check.click()"
+                class="w-100 mt-3 btn"
+                [ngClass]="
+                  lanyard_check.checked
+                    ? 'btn-primary'
+                    : 'btn-outline-secondary'
+                "
+              >
+                <ng-container *ngIf="!lanyard_check.checked">
+                  Select
+                </ng-container>
+                <ng-container *ngIf="lanyard_check.checked">
+                  Selected
+                </ng-container>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-slide" [ngClass]="isShopNowButton ? 'open' : ''">
+        <button type="submit" class="btn btn-lg btn-dark">Shop Now</button>
+      </div>
+    </form>
   </div>
 </div>
+
 <div id="services" class="d-flex align-items-center">
   <div class="container-xxl">
     <div class="head_area">

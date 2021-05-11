@@ -10,11 +10,17 @@ import { timer } from "rxjs";
   templateUrl: './shop.component.html'
 })
 export class ShopComponent implements OnInit {
+  cardDropdown: any;
+  holderDropdown: any;
+  lanyardDropdown: any;
   cardQtyValue = 1;
   doriQtyValue = 1;
   holderQtyValue = 1;
   restItemsForm = this.fb.group({});
   uploadMessage = false;
+  cardImg: any;
+  holderImg: any;
+  lanyardImg: any;
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private globalService: GlobalService) { }
 
   ngOnInit(): void {
@@ -22,9 +28,29 @@ export class ShopComponent implements OnInit {
     this.uploadMessage = this.globalService.uploadMessage;
 
     const source = timer(2000);
-    source.subscribe(() => this.uploadMessage = false)
+    source.subscribe(() => this.uploadMessage = false);
+    this.getShopData();
   }
 
+  getShopData() {
+    const productFormData = sessionStorage.getItem("productFormData");
+    if (productFormData) {
+      const finalProductFormData = JSON.parse(productFormData);
+      this.setResponse(finalProductFormData);
+    } else {
+      this.globalService.getHomePage()
+        .subscribe((res: any) => {
+          sessionStorage.setItem("homePage", JSON.stringify(res));
+          this.setResponse(res);
+        });
+    }
+  }
+  private setResponse(res: any) {
+    this.cardDropdown = res.cardsSlider;
+    this.holderDropdown = res.holdersSlider;
+    this.lanyardDropdown = res.lanyardsSlider;
+    this.checkProductImg();
+  }
   private initForm() {
     this.restItemsForm = this.fb.group({
       cardType: this.fb.control('Select'),
@@ -69,4 +95,47 @@ export class ShopComponent implements OnInit {
     return this.holderQtyValue += 1;
   }
 
+
+  selectedCard(event: any) {
+    this.cardDropdown.forEach((element: any) => {
+      if (element.name == event.target.value) {
+        this.cardImg = element.url;
+      }
+    });
+  }
+
+  selectedLanydard(event: any) {
+    this.lanyardDropdown.forEach((element: any) => {
+      if (element.name == event.target.value) {
+        this.lanyardImg = element.url;
+      }
+    });
+  }
+
+  selectedHolder(event: any) {
+    this.holderDropdown.forEach((element: any) => {
+      if (element.name == event.target.value) {
+        this.holderImg = element.url;
+      }
+    });
+  }
+
+
+  private checkProductImg() {
+    this.cardDropdown.forEach((element: any) => {
+      if (element.checked) {
+        this.cardImg = element.url;
+      }
+    });
+    this.holderDropdown.forEach((element: any) => {
+      if (element.checked) {
+        this.holderImg = element.url;
+      }
+    });
+    this.lanyardDropdown.forEach((element: any) => {
+      if (element.checked) {
+        this.lanyardImg = element.url;
+      }
+    });
+  }
 }

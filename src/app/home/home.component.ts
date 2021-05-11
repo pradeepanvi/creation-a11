@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 import { GlobalService } from '../shared/global.service';
 declare var $: any;
 
@@ -10,7 +12,6 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
   welcome: any;
-  slider: any;
   ourProduct: any;
   ourService: any;
   ourClient: any;
@@ -22,7 +23,12 @@ export class HomeComponent implements OnInit {
     phone: this.fb.control('', [Validators.required]),
     msg: this.fb.control('', Validators.required),
   });
-  constructor(private http: HttpClient, private globalService: GlobalService, private fb: FormBuilder) {
+
+  productForm = this.fb.group({});
+  isShopNowButton: any;
+  isLanyardDisabled: any;
+
+  constructor(private http: HttpClient, private globalService: GlobalService, private fb: FormBuilder, private router: Router) {
 
   }
 
@@ -30,21 +36,16 @@ export class HomeComponent implements OnInit {
     this.getJSONData();
   }
 
+  onKey(evnt: any) {
+    console.log(evnt)
+  }
 
 
   getJSONData() {
     const homePageData = sessionStorage.getItem("homePage");
     if (homePageData) {
       let res = JSON.parse(homePageData);
-      this.welcome = res.welcome;
-      this.slider = res.sliderItems;
-      this.ourProduct = res.ourProduct;
-      this.ourService = res.ourService;
-      this.ourClient = res.ourClient;
-      setTimeout(() => {
-        this.initSlider();
-        this.loaderShow = false;
-      }, 1000);
+      this.setResponse(res);
     } else {
       this.getFirebaseJSONData();
     }
@@ -53,18 +54,25 @@ export class HomeComponent implements OnInit {
     this.globalService.getHomePage()
       .subscribe((res: any) => {
         sessionStorage.setItem("homePage", JSON.stringify(res));
-        this.welcome = res.welcome;
-        this.slider = res.sliderItems;
-        this.ourProduct = res.ourProduct;
-        this.ourService = res.ourService;
-        this.ourClient = res.ourClient;
-        console.log(res);
-        setTimeout(() => {
-          this.initSlider();
-          this.loaderShow = false;
-          // this._detectViewport();
-        }, 1000);
+        this.setResponse(res);
       });
+  }
+
+  setResponse(res: any) {
+    this.welcome = res.welcome;
+    this.ourService = res.ourService;
+    this.ourClient = res.ourClient;
+    // init Form
+    this.initProductForm();
+    this.addSliderItem(this.cardsSliderArray, res.cardSlider);
+    this.addSliderItem(this.holdersSliderArray, res.holderSlider);
+    this.addSliderItem(this.lanyardsSliderArray, res.lanyardSlider);
+    // start slider
+    const source = timer(1000);
+    source.subscribe(() => {
+      this.initSlider();
+      this.loaderShow = false;
+    })
   }
 
   initSlider() {
@@ -113,6 +121,68 @@ export class HomeComponent implements OnInit {
   removeClass(className: string) {
     this.askQF.reset();
     document.querySelector('#contact')?.classList.remove(className);
+  }
+
+  private initProductForm() {
+    this.productForm = this.fb.group({
+      cardsSlider: this.fb.array([]),
+      holdersSlider: this.fb.array([]),
+      lanyardsSlider: this.fb.array([])
+    })
+  }
+
+  onSubmitProduct() {
+    console.log(this.productForm.value);
+    sessionStorage.setItem("productFormData", JSON.stringify(this.productForm.value));
+    this.router.navigateByUrl('shop');
+  }
+
+  get cardsSliderArray() {
+    return this.productForm.get('cardsSlider') as FormArray;
+  }
+
+  get holdersSliderArray() {
+    return this.productForm.get('holdersSlider') as FormArray;
+  }
+
+  get lanyardsSliderArray() {
+    return this.productForm.get('lanyardsSlider') as FormArray;
+  }
+
+  initItem(name = '', url = '', checked = false) {
+    return this.fb.group({
+      name: name,
+      url: url,
+      checked: checked
+    })
+  }
+
+  addSliderItem(formSliderArray: any, originalArry: any) {
+    for (let i = 0; i < originalArry.length; i++) {
+      formSliderArray.push(this.initItem(originalArry[i].name, originalArry[i].url, originalArry[i].checked));
+    }
+  }
+
+  @HostListener("click")
+  onDropdownItemClick() {
+    const productForm = this.productForm.value;
+    let isChecked = false;
+    let shopBtnActive = false;
+    let checkLanyardDisabled = false;
+    Object.keys(productForm).forEach((item) => {
+      productForm[item].forEach((element: any) => {
+        if (element["checked"] == true && !isChecked) {
+          shopBtnActive = true;
+          isChecked = true;
+        }
+        // lanyard
+        if (item == 'lanyardsSlider' && element["checked"] == false && !checkLanyardDisabled) {
+          checkLanyardDisabled = true;
+        }
+      });
+    })
+    this.isShopNowButton = shopBtnActive;
+    this.isLanyardDisabled = checkLanyardDisabled;
   }
 
 }
