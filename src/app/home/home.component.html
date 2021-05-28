@@ -160,7 +160,17 @@
         </div>
       </div>
       <div class="card-slide" [ngClass]="isShopNowButton ? 'open' : ''">
-        <button type="submit" class="btn btn-lg btn-dark">Shop Now</button>
+        <ng-container *ngIf="!isUserLoggedIn">
+          <small>Before start journey you must have logged In</small
+          ><br /><br />
+        </ng-container>
+        <button
+          type="submit"
+          class="btn btn-lg btn-dark"
+          [disabled]="!isUserLoggedIn"
+        >
+          Shop Now
+        </button>
       </div>
     </form>
   </div>

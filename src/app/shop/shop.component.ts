@@ -125,16 +125,19 @@ export class ShopComponent implements OnInit {
     this.cardDropdown.forEach((element: any) => {
       if (element.checked) {
         this.cardImg = element.url;
+        this.restItemsForm.controls['cardType'].setValue(element.name);
       }
     });
     this.holderDropdown.forEach((element: any) => {
       if (element.checked) {
         this.holderImg = element.url;
+        this.restItemsForm.controls['holderType'].setValue(element.name);
       }
     });
     this.lanyardDropdown.forEach((element: any) => {
       if (element.checked) {
         this.lanyardImg = element.url;
+        this.restItemsForm.controls['doriType'].setValue(element.name);
       }
     });
   }

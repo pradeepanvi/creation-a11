@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   productForm = this.fb.group({});
   isShopNowButton: any;
   isLanyardDisabled: any;
+  isUserLoggedIn = false;
 
   constructor(private http: HttpClient, private globalService: GlobalService, private fb: FormBuilder, private router: Router) {
 
@@ -34,6 +35,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getJSONData();
+    this.isUserLoggedIn = this.globalService.user ? true : false;
+    this.globalService.userObservable.subscribe((x: any) => this.isUserLoggedIn = x ? true : false);
   }
 
   onKey(evnt: any) {
