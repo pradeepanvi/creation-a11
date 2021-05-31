@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit {
   onSubmitProduct() {
     console.log(this.productForm.value);
     sessionStorage.setItem("productFormData", JSON.stringify(this.productForm.value));
-    this.router.navigateByUrl('shop');
+    this.router.navigateByUrl('upload-design');
   }
 
   get cardsSliderArray() {
